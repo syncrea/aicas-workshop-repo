@@ -1,10 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ContactService } from './contact.service';
+import { ContactService, STORAGE_KEY } from './contact.service';
 
 describe('ContactService', () => {
   beforeEach(() => {
+    // Pre-seed storage with an explicit empty list so the
+    // first-load sample-contact seeding path doesn't fire in tests.
+    // The seeding path is covered by its own test below.
     localStorage.clear();
+    localStorage.setItem(STORAGE_KEY, '[]');
     TestBed.configureTestingModule({});
   });
 
@@ -12,10 +16,19 @@ describe('ContactService', () => {
     return TestBed.inject(ContactService);
   }
 
-  it('starts empty when storage is empty', () => {
+  it('respects an explicit empty list in storage', () => {
     const service = makeService();
     expect(service.contacts()).toEqual([]);
     expect(service.count()).toBe(0);
+  });
+
+  it('seeds sample contacts on a truly empty first load', () => {
+    localStorage.removeItem(STORAGE_KEY);
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({});
+    const service = TestBed.inject(ContactService);
+    expect(service.count()).toBeGreaterThan(0);
+    expect(localStorage.getItem(STORAGE_KEY)).not.toBeNull();
   });
 
   describe('create', () => {

@@ -2,8 +2,9 @@ import { Injectable, computed, signal } from '@angular/core';
 
 import { Result, err, ok } from '../shared/utils/result';
 import { Contact, ContactDraft, ContactError } from './contact.model';
+import { buildSampleContacts } from './sample-contacts';
 
-const STORAGE_KEY = 'contacts.v1';
+export const STORAGE_KEY = 'contacts.v1';
 
 /**
  * In-browser contact store. Holds the canonical list in a signal so
@@ -137,8 +138,13 @@ export class ContactService {
   private loadFromStorage(): readonly Contact[] {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        return [];
+      if (raw === null) {
+        // First-ever load on this browser: prime with sample contacts
+        // so the app has something to show. Subsequent loads (even of
+        // an explicitly-empty list, where raw === '[]') skip seeding.
+        const seeded = buildSampleContacts();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(seeded));
+        return seeded;
       }
       const parsed: unknown = JSON.parse(raw);
       if (!Array.isArray(parsed)) {

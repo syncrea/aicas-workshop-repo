@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { contactDisplayName } from '../contact.model';
+import { formatRelativeDate } from '../../shared/utils/date';
+import { Contact, contactDisplayName } from '../contact.model';
 import { ContactService } from '../contact.service';
 
 @Component({
@@ -37,15 +38,26 @@ import { ContactService } from '../contact.service';
             <li>
               <a
                 [routerLink]="['/contacts', contact.id]"
-                class="flex items-center justify-between gap-4 px-5 py-4 hover:bg-slate-50"
+                class="flex items-center gap-4 px-5 py-4 hover:bg-slate-50"
               >
-                <div>
-                  <p class="font-medium text-slate-900">{{ displayName(contact) }}</p>
-                  <p class="text-sm text-slate-500">{{ contact.email }}</p>
+                <span
+                  class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-medium text-slate-700"
+                  aria-hidden="true"
+                >
+                  {{ initials(contact) }}
+                </span>
+                <div class="min-w-0 flex-1">
+                  <p class="truncate font-medium text-slate-900">
+                    {{ displayName(contact) }}
+                  </p>
+                  <p class="truncate text-sm text-slate-500">{{ contact.email }}</p>
                 </div>
-                @if (contact.company) {
-                  <p class="text-sm text-slate-500">{{ contact.company }}</p>
-                }
+                <div class="hidden text-right text-xs text-slate-500 sm:block">
+                  @if (contact.company) {
+                    <p class="text-slate-600">{{ contact.company }}</p>
+                  }
+                  <p>updated {{ relative(contact.updatedAt) }}</p>
+                </div>
               </a>
             </li>
           }
@@ -57,4 +69,11 @@ import { ContactService } from '../contact.service';
 export class ContactList {
   protected readonly service = inject(ContactService);
   protected readonly displayName = contactDisplayName;
+  protected readonly relative = formatRelativeDate;
+
+  protected initials(contact: Contact): string {
+    const first = contact.firstName.charAt(0);
+    const last = contact.lastName.charAt(0);
+    return `${first}${last}`.toUpperCase();
+  }
 }

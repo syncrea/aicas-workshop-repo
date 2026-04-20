@@ -1,6 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
+import { formatRelativeDate } from '../../shared/utils/date';
 import { contactDisplayName } from '../contact.model';
 import { ContactService } from '../contact.service';
 
@@ -52,7 +53,9 @@ import { ContactService } from '../contact.service';
           </div>
         </div>
 
-        <dl class="grid grid-cols-1 gap-y-4 rounded-lg border border-slate-200 bg-white p-6 sm:grid-cols-2">
+        <dl
+          class="grid grid-cols-1 gap-y-4 rounded-lg border border-slate-200 bg-white p-6 sm:grid-cols-2"
+        >
           <div>
             <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">
               Email
@@ -82,6 +85,13 @@ import { ContactService } from '../contact.service';
             </div>
           }
         </dl>
+
+        <p class="text-xs text-slate-500">
+          Added {{ relative(contact.createdAt) }}
+          @if (contact.updatedAt !== contact.createdAt) {
+            · Updated {{ relative(contact.updatedAt) }}
+          }
+        </p>
       </div>
     }
   `,
@@ -94,6 +104,7 @@ export class ContactDetail {
 
   protected readonly contactResult = computed(() => this.service.getById(this.id()));
   protected readonly displayName = contactDisplayName;
+  protected readonly relative = formatRelativeDate;
 
   protected onDelete(id: string): void {
     if (!confirm('Delete this contact? This cannot be undone.')) {
