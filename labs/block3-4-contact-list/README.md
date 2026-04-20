@@ -1,59 +1,94 @@
-# Block34ContactList
+# Block 3+4 Lab — Contact List
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+A small Angular 21 contact list app, intentionally shipped **without any
+AI agent context** — no `AGENTS.md`, no `docs/`, no `.cursor/rules/`, no
+`.claude/`. That's the whole point: Block 3 has you point an unsupervised
+agent at this codebase and observe what happens, and Block 4 has you build
+the context layer that fixes it.
 
-## Development server
+> **Stop here if you haven't done the [environment setup](../../setup/environment-setup.md).**
+> You need Claude Code installed and pointing at MiniMax-M2.7-highspeed
+> (or your assigned model) before any of the exercises below will work.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Run the app
 
 ```bash
-ng generate component component-name
+cd labs/block3-4-contact-list
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Open http://localhost:4200/. The first load seeds ten well-known computer
+scientists into `localStorage` so you have something to look at.
+
+Other useful scripts:
 
 ```bash
-ng generate --help
+npm test            # Vitest, runs once
+npx ng test         # Vitest in watch mode
+npm run build       # production build
 ```
 
-## Building
+To wipe local state and start over with the seed data again, open DevTools
+→ Application → Local Storage and delete the `contacts.v1` key.
 
-To build the project run:
+---
 
-```bash
-ng build
+## What the app actually does
+
+- List all contacts (sorted alphabetically by last name).
+- Open a contact's detail page.
+- Create / edit / delete contacts.
+- Track a "recently viewed" sidebar — *added in the last commit, and
+  this is where Block 3 starts.*
+
+State lives in browser `localStorage` only — no backend. That keeps the
+focus on agent supervision rather than infrastructure.
+
+## Stack at a glance
+
+| Concern | Choice |
+| --- | --- |
+| Angular | 21.x, standalone components, signals, zoneless |
+| Templates | Inline, `@if` / `@for` syntax |
+| Forms | Reactive forms via `NonNullableFormBuilder` |
+| Errors | `Result<T, E>` wrapper from `src/app/shared/utils/result.ts` |
+| Styling | Tailwind 4 (CSS-first config) |
+| Tests | Vitest via `@angular/build:unit-test` |
+| Persistence | `localStorage` |
+
+## Folder map
+
+```
+src/app/
+├── app.ts                   # root component shell
+├── app.config.ts            # provideRouter + withComponentInputBinding
+├── app.routes.ts            # lazy routes for list / new / :id / :id/edit
+├── shared/
+│   └── utils/
+│       ├── date.ts          # formatRelativeDate (the canonical helper)
+│       ├── date.spec.ts
+│       └── result.ts        # Result<T, E> + ok() / err()
+└── contacts/
+    ├── contact.model.ts     # Contact, ContactDraft, ContactError
+    ├── contact.service.ts   # signal-based store + localStorage
+    ├── contact.service.spec.ts
+    ├── sample-contacts.ts   # first-load seed
+    ├── contact-list/
+    ├── contact-detail/
+    ├── contact-form/        # used for both create and edit
+    └── recently-viewed/     # ← this folder is the Block 3 review surface
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Where to go next
 
-## Running unit tests
+| You're doing | Open this |
+| --- | --- |
+| Block 3 (Permissions, Modes, Diff Review) | [`EXERCISE-BLOCK-3.md`](./EXERCISE-BLOCK-3.md) |
+| Block 4 (Context with AGENTS.md and docs) | [`EXERCISE-BLOCK-4.md`](./EXERCISE-BLOCK-4.md) |
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+> **Heads up:** Block 4 builds directly on top of Block 3 in this same
+> codebase. Don't reset between sessions — the AGENTS.md you'll write in
+> Block 4 is supposed to encode the lessons from your Block 3 review.
