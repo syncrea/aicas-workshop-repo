@@ -1,0 +1,9 @@
+{
+  "_comment": "Chrome DevTools-MCP for Windows (native) and macOS — uses the system Chrome installation. Requires Chrome installed and Node.js. Auto-connects to a running Chrome instance launched with --remote-debugging-port=9222, or launches one itself.",
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--auto-connect"]
+    }
+  }
+}

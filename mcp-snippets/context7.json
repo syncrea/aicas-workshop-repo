@@ -1,0 +1,12 @@
+{
+  "_comment": "Context7 — fetches current, version-specific library docs into the agent's context. Antidote to hallucinated APIs from stale training cutoffs. Free tier works without an API key but is rate-limited; get a free key at context7.com/dashboard for higher limits and paste it into the env block below.",
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "env": {
+        "CONTEXT7_API_KEY": "<optional-but-recommended-paste-key-here>"
+      }
+    }
+  }
+}

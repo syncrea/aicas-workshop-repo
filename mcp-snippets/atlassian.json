@@ -1,0 +1,9 @@
+{
+  "_comment": "Atlassian Rovo MCP Server — official Atlassian-hosted bridge to Jira / Confluence / Compass for Atlassian Cloud sites. HTTP transport with browser-based OAuth 2.1 (Claude Code triggers the flow on first use). Requires an Atlassian Cloud site you have access to. Self-hosted/Server users need Atlassian's separate MCP path.",
+  "mcpServers": {
+    "atlassian": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "_comment": "Chrome DevTools-MCP for WSL / headless Linux. WSL has no display, so install a headless Chrome via Puppeteer first: `npx -y @puppeteer/browsers install chrome@stable --path ~/chrome` — then update the executablePath below to the actual binary path printed by the install command.",
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--executablePath",
+        "/home/<user>/chrome/chrome/linux-<version>/chrome-linux64/chrome",
+        "--no-sandbox",
+        "--disable-setuid-sandbox"
+      ]
+    }
+  }
+}

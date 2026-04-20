@@ -1,0 +1,9 @@
+{
+  "_comment": "GitLab MCP Server — official GitLab-hosted bridge to projects, issues, MRs, pipelines, etc. HTTP transport with OAuth (authenticate via /mcp inside Claude Code on first use). Requires GitLab Duo with beta and experimental features enabled. For self-managed GitLab, replace gitlab.com with your instance hostname.",
+  "mcpServers": {
+    "GitLab": {
+      "type": "http",
+      "url": "https://gitlab.com/api/v4/mcp"
+    }
+  }
+}

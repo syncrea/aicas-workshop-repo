@@ -1,0 +1,9 @@
+{
+  "_comment": "Codanna — semantic code search + symbol/relationship graph. Requires `codanna` binary on PATH (see github.com/bartolli/codanna) and an indexed repo (run `codanna index .` once at project root). Workshop uses this against the Angular monorepo in Block 5.",
+  "mcpServers": {
+    "codanna": {
+      "command": "codanna",
+      "args": ["--config", ".codanna/settings.toml", "serve", "--watch"]
+    }
+  }
+}

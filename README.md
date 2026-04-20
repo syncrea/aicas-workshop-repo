@@ -2,6 +2,10 @@
 
 This is the umbrella repository for the **"How to Become an AI Coding Supervisor"** 2-day workshop. Participants clone it once and use it across both days.
 
+```bash
+git clone https://github.com/syncrea/aicas-workshop-repo.git
+```
+
 > **For workshop participants:** before Day 1, follow [`setup/environment-setup.md`](setup/environment-setup.md) to install Claude Code and point it at MiniMax-M2.7-highspeed. Once that works, you don't need to do anything else here — your facilitator will tell you which lab to open and when.
 
 ---
