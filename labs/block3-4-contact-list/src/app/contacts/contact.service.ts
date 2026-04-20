@@ -22,6 +22,19 @@ export class ContactService {
   readonly contacts = this.state.asReadonly();
   readonly count = computed(() => this.state().length);
 
+  /**
+   * Contacts sorted alphabetically by last name, then first name.
+   * Components that want the canonical display order should bind to
+   * this signal directly instead of re-sorting in the template or
+   * component class.
+   */
+  readonly contactsByName = computed(() =>
+    [...this.state()].sort(
+      (a, b) =>
+        a.lastName.localeCompare(b.lastName) || a.firstName.localeCompare(b.firstName),
+    ),
+  );
+
   getById(id: string): Result<Contact, ContactError> {
     const found = this.state().find((c) => c.id === id);
     if (!found) {

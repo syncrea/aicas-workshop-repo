@@ -16,10 +16,14 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render the Contacts header', async () => {
+  it('should render the Contacts header and primary actions', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('header h1')?.textContent?.trim()).toBe('Contacts');
+    expect(compiled.querySelector('header a')?.textContent?.trim()).toBe('Contacts');
+    const navLinks = Array.from(compiled.querySelectorAll('header nav a')).map((el) =>
+      el.textContent?.trim(),
+    );
+    expect(navLinks).toEqual(['All contacts', 'Add contact']);
   });
 });
