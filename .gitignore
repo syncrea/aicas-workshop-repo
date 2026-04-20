@@ -36,3 +36,9 @@ coverage/
 
 # Misc
 *.log
+
+# Workshop authoring artifacts (kept locally, never committed)
+# - WIP-WORKSHOP-UMBRELLA.md: internal build plan + planted-pattern spoilers
+# - Workshop Outline ...md:    facilitator-only source outline
+WIP-WORKSHOP-UMBRELLA.md
+Workshop Outline - How to Become an AI Coding Supervisor.md
