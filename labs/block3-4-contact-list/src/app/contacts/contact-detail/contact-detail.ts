@@ -1,9 +1,10 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, effect, inject, input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 import { formatRelativeDate } from '../../shared/utils/date';
 import { contactDisplayName } from '../contact.model';
 import { ContactService } from '../contact.service';
+import { RecentlyViewedService } from '../recently-viewed/recently-viewed.service';
 
 @Component({
   selector: 'app-contact-detail',
@@ -99,12 +100,22 @@ import { ContactService } from '../contact.service';
 export class ContactDetail {
   private readonly service = inject(ContactService);
   private readonly router = inject(Router);
+  private readonly recentlyViewed = inject(RecentlyViewedService);
 
   readonly id = input.required<string>();
 
   protected readonly contactResult = computed(() => this.service.getById(this.id()));
   protected readonly displayName = contactDisplayName;
   protected readonly relative = formatRelativeDate;
+
+  constructor() {
+    effect(() => {
+      const result = this.contactResult();
+      if (result.ok) {
+        this.recentlyViewed.track(result.value.id);
+      }
+    });
+  }
 
   protected onDelete(id: string): void {
     if (!confirm('Delete this contact? This cannot be undone.')) {
