@@ -17,6 +17,20 @@ If a strict-mode error blocks you, fix the type — don't `// @ts-ignore` it. Th
 
 ---
 
+## Functional first, classes when the framework asks
+
+Stateless logic is a **pure function**, not a class. Validation rules, formatting helpers, mappers, error translators — they live as exported functions in a `*.utils.ts` file (or in `apps/web/src/app/shared/utils/`, or `apps/api/src/common/`). The mappers in `apps/api/src/common/mappers.ts` and the formatters in `apps/web/src/app/shared/utils/date.ts` are the canonical examples.
+
+Reach for a `class` when:
+
+- The framework wants one: Nest providers (`@Injectable()`), Angular components, DTOs that need class-validator metadata.
+- You actually own state across calls (a `*Store` service in `apps/web`).
+- DI is the only clean way to swap an implementation.
+
+A class with one method, no constructor parameters, and no state should be a function. Don't wrap a `static` method in a class to "namespace" it — the file is already the namespace.
+
+---
+
 ## `any` is banned, `unknown` is fine
 
 - Prefer narrowing from `unknown` over silently accepting `any`.
@@ -62,6 +76,30 @@ If you add a new union, mirror it in `libs/shared-types/src/lib/<entity>.ts` *an
 
 ---
 
+## Discriminated unions and type guards
+
+When a value can be one of several distinct shapes, model it as a **discriminated union** with a literal `type` (or `kind`) field, and write an `is*` predicate that narrows it. The canonical example is `ApiError` in `libs/shared-types/src/lib/api-error.ts`.
+
+```ts
+interface OkResult<T> {
+  readonly status: 'ok';
+  readonly value: T;
+}
+interface ErrResult {
+  readonly status: 'error';
+  readonly error: ApiError;
+}
+export type Result<T> = OkResult<T> | ErrResult;
+
+export function isOk<T>(r: Result<T>): r is OkResult<T> {
+  return r.status === 'ok';
+}
+```
+
+The predicate lives next to the type it narrows, named once. Don't open-code `r.status === 'ok'` checks across the codebase — they break the moment you rename the discriminator.
+
+---
+
 ## Imports
 
 - Use the path alias `@aicas/shared-types` for the shared library — never deep imports.
@@ -83,6 +121,7 @@ If you add a new union, mirror it in `libs/shared-types/src/lib/<entity>.ts` *an
 | Files | `kebab-case.ts` (`project-detail.ts`, `current-user.middleware.ts`) |
 | Types & interfaces | `PascalCase` (`Project`, `CreateProjectRequest`) |
 | Variables, functions | `camelCase` (`currentUserId`, `formatRelativeDate`) |
+| Booleans | `is*` / `has*` / `should*` / `can*` (`isLoading`, `hasMembers`, `shouldRetry`, `canEdit`) |
 | Constants | `UPPER_SNAKE_CASE` only when truly constant *and* exported as a value (`TASK_STATUSES`) |
 | Angular components | `PascalCase` class, `app-` selector prefix (`<app-project-list>`) |
 | Nest providers | `PascalCase` ending in their role (`ProjectsService`, `ApiExceptionFilter`) |
@@ -103,6 +142,18 @@ If you add a new union, mirror it in `libs/shared-types/src/lib/<entity>.ts` *an
 - Prefer `async` / `await` over `.then()` chains, both in services and in stores.
 - On the frontend, `firstValueFrom(observable)` is the bridge from `HttpClient`'s observables into the async/await world. Use it consistently in the `*Store` methods so all data access has the same shape.
 - Don't fire-and-forget. If a function is async and you don't `await` it, ESLint's `no-floating-promises` rule will fail the build.
+
+---
+
+## Style
+
+The defaults the codebase relies on — call them out so reviewers don't have to.
+
+- **Default parameters** instead of `value = value ?? fallback` inside the body.
+- **Optional chaining (`?.`)** and **nullish coalescing (`??`)** over manual `!= null` ladders. `user()?.profile?.bio ?? 'No bio'`, not three nested `if`s.
+- **Destructuring** in function parameters and assignments when it shortens the call site. Don't destructure six fields you only use once each.
+- **Template literals** for any string with interpolation. No `'User ' + id + ' did X'`.
+- **Spread, don't mutate.** `{ ...obj, x: 1 }` and `[...arr, item]` everywhere — including inside `*Store` updaters and inside Nest service mappers. The only place mutation is acceptable is a local accumulator inside a loop where allocation cost would actually matter.
 
 ---
 

@@ -31,6 +31,12 @@ Module boundaries match URL boundaries:
 
 Nested resources live in their own module, not inside `ProjectsModule`. The reason is purely organisational — keeping `projects.service.ts` focused on the project entity itself.
 
+## Pure helpers vs services
+
+Stateless utility logic — formatting, validation, mapping Prisma rows to DTOs — lives in `apps/api/src/common/*.ts` as **exported functions**, not `@Injectable()` services. The mappers in `apps/api/src/common/mappers.ts` are the canonical example: a flat list of pure functions, no DI, no constructor, no test scaffolding overhead.
+
+Reach for an `@Injectable()` class when you actually need DI — typically because you depend on `PrismaService` or another service — or when you genuinely manage state across calls. A "service" with one method, no constructor, and no state should be a function in `common/`.
+
 ## Controllers are thin
 
 A controller method's job is:

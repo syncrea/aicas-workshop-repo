@@ -29,6 +29,21 @@ export class ProjectCard {
 }
 ```
 
+## Container vs presentational
+
+The component tree splits roughly into two kinds:
+
+- **Container components** are the feature roots — usually the route target. They `inject(...)` the relevant `*Store` and `ApiClient`, kick off loads, handle navigation, and pass plain inputs into smaller components.
+- **Presentational components** (most of `apps/web/src/app/shared/components/` and the leaf components inside a feature) only receive `input()`s and emit `output()`s. They never inject a `*Store`, `ApiClient`, or `Router`. The same component should drop into a different feature without rewiring.
+
+If a "presentational" component needs data from a store, the boundary is wrong — promote it to a container, or split a smaller dumb child out and keep the wiring in the parent.
+
+## Lifecycle
+
+Initialise in the **constructor** by default. The only reason to use `ngOnInit` is to wait for a signal `input()` to be settled — Angular guarantees inputs are populated by the first `ngOnInit` call but not in the constructor.
+
+Don't reach for `effect()` to *derive* a value from another signal — that's `computed()`'s job. `effect()` is for genuine side effects: writing to `localStorage`, kicking off an analytics ping, syncing a signal back into a non-signal API. Using `effect()` to set another signal is almost always a mis-modelled `computed()`.
+
 ## Control flow
 
 - **`@if` / `@else` / `@for` / `@switch`** — never the structural-directive forms (`*ngIf`, `*ngFor`, `*ngSwitch`).
@@ -49,6 +64,47 @@ The default for any new piece of state is **a signal**. The decision tree:
 | Genuine streams (websockets, route param streams over time) | RxJS `Observable` — but justify it; the codebase has almost none |
 
 `*Store` services follow a consistent shape — see `apps/web/src/app/projects/projects.store.ts` for the canonical example. New stores should mirror it (private `signal` for the raw data, public `computed` for read-only access, async methods for mutations that update the signal optimistically or after the server response).
+
+## Template values come from signals, not method calls
+
+Don't call a component method from a template to compute a view value:
+
+```html
+<!-- bad: runs on every change-detection tick -->
+<span>{{ formatPrice(item()) }}</span>
+```
+
+Compute it once in a `computed()` and read the signal:
+
+```ts
+readonly priceLabel = computed(() => formatPrice(this.item()));
+```
+
+```html
+<span>{{ priceLabel() }}</span>
+```
+
+For repeated rows inside `@for`, pick whichever is cleaner:
+
+- **Enrich the data** in a `computed()` that returns rows already carrying their derived fields, or
+- **Extract a sub-component** that takes the raw row as `input()` and exposes its own `computed()` view values.
+
+Pure pipes are exempt — Angular memoises them. The rule is about component methods, not pipe transforms.
+
+## View queries
+
+When you need a child element or component imperatively (focusing an input, scrolling, calling a method), use the signal-based queries:
+
+```ts
+readonly nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
+readonly rows = viewChildren(TaskRow);
+
+focusName(): void {
+  this.nameInput()?.nativeElement.focus();
+}
+```
+
+Don't use `@ViewChild` / `@ViewChildren` decorators — they're the legacy form and don't compose with the rest of the signal-based reads in `apps/web`.
 
 ## Forms
 
