@@ -37,6 +37,11 @@ coverage/
 # Misc
 *.log
 
+# Claude Code per-user state (e.g. project-scope MCP trust choices).
+# `.claude/settings.json`, `.claude/agents/`, `.claude/commands/` are project-shared
+# and stay tracked; only `settings.local.json` is local-user state.
+**/.claude/settings.local.json
+
 # Workshop authoring artifacts (kept locally, never committed)
 # - WIP-WORKSHOP-UMBRELLA.md: internal build plan + planted-pattern spoilers
 # - Workshop Outline ...md:    facilitator-only source outline
