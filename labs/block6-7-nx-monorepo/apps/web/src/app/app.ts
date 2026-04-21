@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+import { Header } from './layout/header';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Header],
   template: `
-    <main class="min-h-screen">
-      <router-outlet />
-    </main>
+    <div class="flex min-h-screen flex-col">
+      <app-header />
+      <main class="flex-1">
+        <div class="mx-auto max-w-6xl px-6 py-8">
+          <router-outlet />
+        </div>
+      </main>
+    </div>
   `,
 })
 export class App {}
