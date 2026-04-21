@@ -1,0 +1,130 @@
+// Prisma schema for the workshop project-management API.
+//
+// SQLite is used so the lab needs zero external infrastructure. Each
+// participant gets a real `dev.db` file the first time they run
+// `npm run db:seed`. The schema is the canonical source of truth for the
+// domain model — see `docs/ARCHITECTURE.md` for the data-flow diagram.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// ---------------------------------------------------------------------------
+// Identity
+// ---------------------------------------------------------------------------
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ownedProjects Project[]    @relation("OwnedProjects")
+  memberships   Member[]
+  assignedTasks Task[]       @relation("TaskAssignee")
+  createdTasks  Task[]       @relation("TaskCreator")
+  sentInvites   Invite[]     @relation("InviteSender")
+  attachments   Attachment[] @relation("AttachmentUploader")
+}
+
+// ---------------------------------------------------------------------------
+// Projects + their direct children
+// ---------------------------------------------------------------------------
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  color       String   @default("#64748b") // tailwind slate-500
+  ownerId     String
+  owner       User     @relation("OwnedProjects", fields: [ownerId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tasks       Task[]
+  members     Member[]
+  invites     Invite[]
+  attachments Attachment[]
+
+  @@index([ownerId])
+}
+
+model Task {
+  id          String    @id @default(cuid())
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  // Stored as a string. Allowed values are owned by `TaskStatus` in
+  // `libs/shared-types`. SQLite + Prisma doesn't support native enums; the
+  // application enforces the union at the validation layer.
+  status      String    @default("todo")
+  assigneeId  String?
+  assignee    User?     @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  creatorId   String
+  creator     User      @relation("TaskCreator", fields: [creatorId], references: [id])
+  dueAt       DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([projectId])
+  @@index([assigneeId])
+}
+
+model Member {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  // 'owner' | 'admin' | 'member' | 'viewer' — see `MemberRole` in shared-types
+  role      String   @default("member")
+  joinedAt  DateTime @default(now())
+
+  @@unique([projectId, userId])
+  @@index([projectId])
+  @@index([userId])
+}
+
+model Invite {
+  id          String    @id @default(cuid())
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  email       String
+  role        String    @default("member")
+  // 'pending' | 'accepted' | 'declined' | 'revoked'
+  status      String    @default("pending")
+  invitedById String
+  invitedBy   User      @relation("InviteSender", fields: [invitedById], references: [id])
+  createdAt   DateTime  @default(now())
+  respondedAt DateTime?
+
+  @@index([projectId])
+  @@index([email])
+}
+
+model Attachment {
+  id           String   @id @default(cuid())
+  projectId    String
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  uploadedById String
+  uploadedBy   User     @relation("AttachmentUploader", fields: [uploadedById], references: [id])
+  fileName     String
+  contentType  String
+  sizeBytes    Int
+  // Notional pointer to wherever the binary lives. The workshop baseline
+  // does not store actual blobs — this is metadata-only on purpose, so
+  // questions like "where do the bytes live?" surface naturally during
+  // OpenSpec planning.
+  storageKey   String
+  createdAt    DateTime @default(now())
+
+  @@index([projectId])
+}

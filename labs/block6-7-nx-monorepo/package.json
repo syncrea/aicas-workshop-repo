@@ -8,7 +8,15 @@
     "start:api": "nx serve api",
     "build": "nx run-many -t build",
     "test": "nx run-many -t test",
-    "lint": "nx run-many -t lint"
+    "lint": "nx run-many -t lint",
+    "db:migrate": "prisma migrate dev --schema=apps/api/prisma/schema.prisma",
+    "db:generate": "prisma generate --schema=apps/api/prisma/schema.prisma",
+    "db:seed": "ts-node --transpile-only -O '{\"module\":\"commonjs\"}' apps/api/prisma/seed.ts",
+    "db:reset": "prisma migrate reset --force --schema=apps/api/prisma/schema.prisma",
+    "db:studio": "prisma studio --schema=apps/api/prisma/schema.prisma"
+  },
+  "prisma": {
+    "seed": "ts-node --transpile-only -O '{\"module\":\"commonjs\"}' apps/api/prisma/seed.ts"
   },
   "private": true,
   "devDependencies": {
@@ -53,6 +61,7 @@
     "nx": "22.6.5",
     "postcss": "^8.5.10",
     "prettier": "~3.6.2",
+    "prisma": "^6.19.3",
     "tailwindcss": "^4.2.4",
     "ts-jest": "^29.4.0",
     "ts-node": "10.9.1",
@@ -73,6 +82,9 @@
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
+    "@prisma/client": "^6.19.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0"
   }
