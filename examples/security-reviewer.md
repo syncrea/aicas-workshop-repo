@@ -64,9 +64,9 @@ Audit for the following classes of issue. Don't go beyond them — those are som
 ## 4. Cross-site scripting (XSS) and template safety
 
 - **Angular-specific:**
-  - `[innerHTML]="someUserValue"` without `DomSanitizer`.
-  - `bypassSecurityTrustHtml` / `bypassSecurityTrustScript` / `bypassSecurityTrustResourceUrl` / `bypassSecurityTrustStyle` / `bypassSecurityTrustUrl` applied to anything user-controlled. **Any** call site of these is at minimum a "must justify in code review" finding.
-  - `[src]`, `[href]` bound to user-controlled URLs without validation (`javascript:` URLs).
+  - **Plain `[innerHTML]="someValue"` is safe by default in Angular** — the framework auto-sanitizes via `DomSanitizer` and emits a console warning when it strips anything dangerous. **Don't flag plain `[innerHTML]` bindings on their own.** Flag them only if the bound value is the result of a `bypassSecurityTrust*` call below, or if `ElementRef.nativeElement.innerHTML = ...` is being written manually (which bypasses the framework entirely).
+  - `bypassSecurityTrustHtml` / `bypassSecurityTrustScript` / `bypassSecurityTrustResourceUrl` / `bypassSecurityTrustStyle` / `bypassSecurityTrustUrl` applied to anything user-controlled. **Any** call site of these is at minimum a "must justify in code review" finding — the whole point of these calls is to opt *out* of Angular's built-in sanitization.
+  - `[src]`, `[href]` bound to user-controlled URLs without scheme validation (`javascript:` URLs, `data:` URLs in unsafe contexts).
 - **React/Vue/etc.:** `dangerouslySetInnerHTML`, `v-html`, `Element.innerHTML =` with user input.
 - **Server-rendered templates:** unescaped output (`{{{ x }}}` in Mustache/Handlebars, `|safe` in Jinja with non-static input).
 
