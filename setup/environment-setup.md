@@ -12,7 +12,7 @@ If you already have an Anthropic Claude Max subscription and want to use Anthrop
 
 | Tool | Version | Why |
 |------|---------|-----|
-| Node.js | **22 LTS or newer** | Required for Claude Code, OpenSpec, and the lab apps (Angular CLI 20+, NestJS 11+) |
+| Node.js | **22 LTS or newer** | Required for Claude Code, OpenSpec, and the lab apps (Angular CLI 21+, NestJS 11+) |
 | Git | any recent | Diff/rollback mechanism for every CLI agent we use |
 | Google Chrome | latest stable | Block 5 Chrome DevTools-MCP exercise |
 | Claude Code | latest | The agent harness we use throughout |
@@ -174,7 +174,9 @@ These take 5–10 minutes and save real time on Day 2:
   openspec --version
   ```
 
-- **Install Chrome** if you don't already have it (used in Block 5).
+- **Install Chrome** if you don't already have it (used in Block 5 Part 2). The Block 5 lab folder ships a pre-configured project-scope `.mcp.json` for Chrome DevTools-MCP — full setup walkthrough is in `labs/block5-chrome-devtools-bug/README.md`. **The first time you start `claude` inside any lab folder that ships a `.mcp.json`, Claude Code shows a one-time approval prompt** (*"Use the MCP servers configured in `.mcp.json`?"*) — accept it, otherwise the MCP stays inactive.
+
+- **Install Codanna** (used in Block 5 Part 1). Per [github.com/bartolli/codanna](https://github.com/bartolli/codanna): `cargo install codanna` if you have the Rust toolchain, or download a release binary. Verify with `codanna --version`. The Block 5 hands-on then runs `codanna index .` against a fresh `angular/angular` clone, which takes ≈5–10 minutes — pre-installing the binary saves that time slot for the actual exercise.
 
 - **For the inter-day homework (Day 1 → Day 2):** decide which stack and app idea you want to use for Block 8 (the "Build Your Own" lab). See `exercises/block8-project-ideas.md` if you don't have one in mind. If you have time, scaffold the project and make an initial commit — you'll save 30–45 minutes on Day 2.
 
