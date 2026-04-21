@@ -91,7 +91,50 @@ claude mcp add --transport http -s project GitLab    https://gitlab.com/api/v4/m
    Re-index after major branch switches or when symbols you expect aren't found.
 3. Drop in `codanna.json` (or merge the entry).
 4. Verify with `/mcp` — the codanna entry should report healthy and expose tools like `semantic_search_with_context`, `analyze_impact`, `find_callers`, `get_calls`.
-5. Encode the **codanna-first / grep-to-verify** policy in your `AGENTS.md` (see Block 5 lab notes for the exact wording).
+5. Encode the **codanna-first / grep-to-verify** policy in your `AGENTS.md` — paste the snippet from *"AGENTS.md policy snippet"* immediately below.
+
+#### Block 5 walkthrough on `angular/angular`
+
+The workshop's Block 5 Part 1 hands-on uses [angular/angular](https://github.com/angular/angular) as the realistic large-codebase target. **No pre-built lab folder ships with the workshop repo for this part on purpose** — participants clone and index themselves so the recipe is one they can carry to their own next project. Reasons for the choice are in `WIP-WORKSHOP-UMBRELLA.md` → *"Open decisions resolved"*.
+
+The full sequence:
+
+```bash
+git clone --depth 1 https://github.com/angular/angular.git
+cd angular
+codanna index .                                 # ≈5–10 min the first time
+cp /path/to/workshop-repo/mcp-snippets/codanna.json ./.mcp.json
+# Edit ./.mcp.json — drop the leading "_comment" field
+```
+
+Then **edit the in-tree `AGENTS.md`** that ships with `angular/angular`:
+
+1. **Strip the YAML frontmatter** at the top (`---trigger: always_on---`). Some MCP-driven indexers and parsers handle it poorly, and removing it makes the file cleanly cross-tool.
+2. **Append the AGENTS.md policy snippet below** at the end of the file. (Don't overwrite the existing testing/PR conventions — Angular's own AGENTS.md is short and useful, just augment it.)
+
+Start Claude Code from the repo root, accept the project-scope `.mcp.json` trust prompt the first time, verify with `/mcp` that `codanna` shows up, then run the four exercise rounds in the workshop outline.
+
+#### AGENTS.md policy snippet
+
+Drop-in section for any AGENTS.md once Codanna is registered for the project. Keep it short, concrete, and verifiable — the value is in *naming the rule*, not in long prose.
+
+<!-- ===================== BEGIN codanna AGENTS.md snippet ===================== -->
+
+## Code search
+
+This repository is indexed with [Codanna](https://github.com/bartolli/codanna). The MCP server is registered at project scope in `.mcp.json` and exposes `semantic_search_with_context`, `analyze_impact`, `find_callers`, and `get_calls`.
+
+**Default to Codanna** when the question is about *concepts, impact, callers, or relationships* — anything where you don't already know the file:
+
+- *"Where do we offer number formatting features?"* → `semantic_search_with_context`
+- *"What's the impact of changing `AbstractControl`?"* → `analyze_impact`
+- *"Who calls `ɵɵdefer`?"* → `find_callers`
+
+**Fall back to `Grep`** when the symbol name is known and unique, or when you specifically need to verify a Codanna claim. Codanna can be wrong — a stale index, same-name twins across modules, or mis-resolved overrides are silent failures only the supervisor catches.
+
+**Cite-then-act:** any Codanna claim that names a specific `file:line` gets a one-shot `Read` or `Grep` verification before you edit or refactor based on it. Same discipline as cite-then-act for any external source.
+
+<!-- ====================== END codanna AGENTS.md snippet ====================== -->
 
 ### Chrome DevTools-MCP (Windows / macOS)
 
