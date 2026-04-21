@@ -1,6 +1,6 @@
 # Reference `AGENTS.md` — Contact List (Block 3+4 Lab)
 
-> **What this is:** the "answer key" `AGENTS.md` for the [`labs/block3-4-contact-list/`](../labs/block3-4-contact-list/) app. This is what the workshop authors would write for that codebase.
+> **What this is:** the "answer key" `AGENTS.md` for the [`labs/lab1-contact-list/`](../labs/lab1-contact-list/) app. This is what the workshop authors would write for that codebase.
 >
 > **DO NOT READ THIS BEFORE YOU'VE WRITTEN YOUR OWN.** Block 4 Exercise 4.2 is *"build it yourself first"* — the value is in the act of writing it. Use this file *afterwards* to compare, find what you missed, and steal what reads better than your own version. There's no single right `AGENTS.md`; this is one good one, deliberately conservative.
 >
@@ -165,4 +165,4 @@ This single file works because the lab is small. The signal that it's time to sp
 - Two or more sections grow long enough that you'd rather link them than scroll through them.
 - A new contributor asks a question and you find yourself answering by paraphrasing — that's a section that belongs in its own file.
 
-The Block 6+7 lab demonstrates the layered shape (`AGENTS.md` as a pointer to `docs/ARCHITECTURE.md` + `docs/guidelines/{TYPESCRIPT,ANGULAR,NESTJS,WORKING-MODE}.md`) — read [`labs/block6-7-nx-monorepo/AGENTS.md`](../labs/block6-7-nx-monorepo/AGENTS.md) for that variant.
+The Block 6+7 lab demonstrates the layered shape (`AGENTS.md` as a pointer to `docs/ARCHITECTURE.md` + `docs/guidelines/{TYPESCRIPT,ANGULAR,NESTJS,WORKING-MODE}.md`) — read [`labs/lab3-nx-monorepo/AGENTS.md`](../labs/lab3-nx-monorepo/AGENTS.md) for that variant.

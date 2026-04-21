@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "block9-security-snippet": {
+    "lab1-contact-list": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -62,10 +62,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "block9-security-snippet:build:production"
+              "buildTarget": "lab1-contact-list:build:production"
             },
             "development": {
-              "buildTarget": "block9-security-snippet:build:development"
+              "buildTarget": "lab1-contact-list:build:development"
             }
           },
           "defaultConfiguration": "development"

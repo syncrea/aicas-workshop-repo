@@ -12,7 +12,7 @@ Before the timer starts, every participant should have:
 
 - [ ] `npm install` run in this folder (≈30 s after first time, near-instant on re-runs).
 - [ ] The dev server running: `npm start` → http://localhost:4200/ open in **a Chrome window started with `--remote-debugging-port=9222`** (see [`README.md`](./README.md#1-launch-chrome-with-the-remote-debugging-port) for the exact incantation).
-- [ ] Claude Code started **from inside this folder**: `cd labs/block5-chrome-devtools-bug && claude`.
+- [ ] Claude Code started **from inside this folder**: `cd labs/lab2-chrome-devtools-bug && claude`.
 - [ ] **Approved the project-scope MCP trust prompt** that appears the first time. If `/mcp` shows nothing, you missed it — run `claude mcp reset-project-choices` and restart `claude`.
 - [ ] `/mcp` shows `chrome-devtools` in the list.
 - [ ] (WSL / Linux only) the `.mcp.json` swap from `README.md` step 3 is done.

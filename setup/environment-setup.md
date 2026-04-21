@@ -174,7 +174,7 @@ These take 5–10 minutes and save real time on Day 2:
   openspec --version
   ```
 
-- **Install Chrome** if you don't already have it (used in Block 5 Part 2). The Block 5 lab folder ships a pre-configured project-scope `.mcp.json` for Chrome DevTools-MCP — full setup walkthrough is in `labs/block5-chrome-devtools-bug/README.md`. **The first time you start `claude` inside any lab folder that ships a `.mcp.json`, Claude Code shows a one-time approval prompt** (*"Use the MCP servers configured in `.mcp.json`?"*) — accept it, otherwise the MCP stays inactive.
+- **Install Chrome** if you don't already have it (used in Block 5 Part 2). The Block 5 lab folder ships a pre-configured project-scope `.mcp.json` for Chrome DevTools-MCP — full setup walkthrough is in `labs/lab2-chrome-devtools-bug/README.md`. **The first time you start `claude` inside any lab folder that ships a `.mcp.json`, Claude Code shows a one-time approval prompt** (*"Use the MCP servers configured in `.mcp.json`?"*) — accept it, otherwise the MCP stays inactive.
 
 - **Install Codanna** (used in Block 5 Part 1). Per [github.com/bartolli/codanna](https://github.com/bartolli/codanna): `cargo install codanna` if you have the Rust toolchain, or download a release binary. Verify with `codanna --version`. The Block 5 hands-on then runs `codanna index .` against a fresh `angular/angular` clone, which takes ≈5–10 minutes — pre-installing the binary saves that time slot for the actual exercise.
 

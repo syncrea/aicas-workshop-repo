@@ -41,7 +41,7 @@ Deliberately small but cross-cutting: it touches Prisma (new table), the shared 
 In this folder, start a fresh Claude Code session:
 
 ```bash
-cd labs/block6-7-nx-monorepo
+cd labs/lab3-nx-monorepo
 claude
 ```
 

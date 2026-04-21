@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "block5-chrome-devtools-bug": {
+    "lab4-security-snippet": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -62,10 +62,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "block5-chrome-devtools-bug:build:production"
+              "buildTarget": "lab4-security-snippet:build:production"
             },
             "development": {
-              "buildTarget": "block5-chrome-devtools-bug:build:development"
+              "buildTarget": "lab4-security-snippet:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -1,6 +1,6 @@
 # Reference subagent — `security-reviewer`
 
-> **What this is:** the "what good looks like" reference for the `security-reviewer` subagent participants build in Block 9, then test against the planted snippet in `labs/block9-security-snippet/`. Compare your own version against this *after* you've built and tested yours.
+> **What this is:** the "what good looks like" reference for the `security-reviewer` subagent participants build in Block 9, then test against the planted snippet in `labs/lab4-security-snippet/`. Compare your own version against this *after* you've built and tested yours.
 >
 > **Where it lives in a real project:** `.claude/agents/security-reviewer.md` (project-scoped) or `~/.claude/agents/security-reviewer.md` (user-global). Once present, the main agent can delegate to it via `/agents` or by referencing it in a prompt; some workflows wire it into a hook so every diff gets a security pass automatically.
 
@@ -177,7 +177,7 @@ Be honest with severity. *"It compiles and tests pass"* is not relevant to this 
 - **Why read-only?** A reviewer that can also write code is no longer a reviewer — it's just another implementation agent. The whole point of the subagent is **independent, conservative judgment** on someone else's diff. Constrain the tools at the frontmatter level; don't trust the prompt alone to keep it honest.
 - **Why no `Bash` other than `git diff`/`log`/`show`?** Most security reviewers don't need to *run* anything. Staying read-only keeps the subagent unable to modify state, which is exactly the property that makes it safe to invoke automatically (e.g. from a hook on every staged commit).
 - **`model: inherit`** means the subagent uses whatever model the main session is on. For a high-precision job like security review, some teams hard-code a stronger model (`model: claude-opus-4-7`) on this subagent specifically; the workshop's MiniMax-M2.7-highspeed setup is fine for the planted-snippet exercise but may miss subtler real-world findings.
-- **Test it against** `labs/block9-security-snippet/` — a small Angular component with planted vulnerabilities. Your own subagent should catch all of them (the lab's `EXERCISE.md` lists what's planted so you can score yourself).
+- **Test it against** `labs/lab4-security-snippet/` — a small Angular component with planted vulnerabilities. Your own subagent should catch all of them (the lab's `EXERCISE.md` lists what's planted so you can score yourself).
 - **Real teams often pair this with:**
   - `dependency-reviewer` — checks `package.json` / `requirements.txt` / `Cargo.toml` diffs against known-vuln lists
   - `secrets-scanner` — runs `gitleaks` / `trufflehog` against the diff and reports

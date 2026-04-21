@@ -27,7 +27,7 @@ Brief facilitator-led discussion on:
 In this folder:
 
 ```bash
-cd labs/block3-4-contact-list
+cd labs/lab1-contact-list
 claude
 ```
 

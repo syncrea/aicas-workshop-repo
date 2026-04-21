@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "block3-4-contact-list": {
+    "lab2-chrome-devtools-bug": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -62,10 +62,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "block3-4-contact-list:build:production"
+              "buildTarget": "lab2-chrome-devtools-bug:build:production"
             },
             "development": {
-              "buildTarget": "block3-4-contact-list:build:development"
+              "buildTarget": "lab2-chrome-devtools-bug:build:development"
             }
           },
           "defaultConfiguration": "development"

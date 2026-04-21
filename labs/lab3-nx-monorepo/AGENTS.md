@@ -23,7 +23,7 @@ There is **no real authentication.** The "currently logged-in user" is whoever i
 
 ## Run it
 
-From the lab folder root (`labs/block6-7-nx-monorepo/`):
+From the lab folder root (`labs/lab3-nx-monorepo/`):
 
 ```sh
 npm install
@@ -62,7 +62,7 @@ When the answer to *"where should this code live?"* isn't in those files, fall b
 ## Workspace layout
 
 ```
-labs/block6-7-nx-monorepo/
+labs/lab3-nx-monorepo/
 ├── apps/
 │   ├── api/                # NestJS backend
 │   │   ├── prisma/         # schema.prisma + migrations + seed

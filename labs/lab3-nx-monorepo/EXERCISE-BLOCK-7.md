@@ -19,7 +19,7 @@ npm install -g @fission-ai/openspec@latest
 Then, **from this lab folder root**:
 
 ```bash
-cd labs/block6-7-nx-monorepo
+cd labs/lab3-nx-monorepo
 openspec init
 ```
 

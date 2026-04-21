@@ -64,7 +64,7 @@ git log --oneline "$BASELINE^..$PLANTED"   # confirm: 2 commits, the baseline + 
 2. Open the diff:
 
    ```bash
-   git diff "$BASELINE..$PLANTED" -- labs/block3-4-contact-list/
+   git diff "$BASELINE..$PLANTED" -- labs/lab1-contact-list/
    ```
 
    (Or use your IDE's git diff viewer — whatever lets you read it most easily.)
@@ -103,7 +103,7 @@ In your pair, decide: **who's driving the agent, who's watching the diff?** Swap
 Open Claude Code in this folder:
 
 ```bash
-cd labs/block3-4-contact-list
+cd labs/lab1-contact-list
 claude
 ```
 

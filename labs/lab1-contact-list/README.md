@@ -15,7 +15,7 @@ the context layer that fixes it.
 ## Run the app
 
 ```bash
-cd labs/block3-4-contact-list
+cd labs/lab1-contact-list
 npm install
 npm start
 ```

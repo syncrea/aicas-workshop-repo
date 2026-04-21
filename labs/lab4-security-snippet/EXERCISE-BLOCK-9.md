@@ -10,7 +10,7 @@ This is the testing slot from Block 9 Step 3. You've already built `security-rev
 
 - [ ] You have a `security-reviewer` subagent registered, either at `.claude/agents/security-reviewer.md` (project-scoped — recommended for the workshop) or `~/.claude/agents/security-reviewer.md` (user-global).
 - [ ] `/agents` lists `security-reviewer`.
-- [ ] You're running Claude Code from inside `labs/block9-security-snippet/`. (Strictly the subagent doesn't care which folder — it reads files by path. But running from this folder makes the prompts shorter.)
+- [ ] You're running Claude Code from inside `labs/lab4-security-snippet/`. (Strictly the subagent doesn't care which folder — it reads files by path. But running from this folder makes the prompts shorter.)
 - [ ] You've **not** read the *"What's planted"* section below yet. (It's the answer key.)
 
 ---

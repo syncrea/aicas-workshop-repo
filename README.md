@@ -46,15 +46,15 @@ This isolation is deliberate. Several labs ship with (or deliberately *without*)
 |-------|----------------------|----------------|
 | 1 — Opening & Framing | Self-assessment + intros (in workshop Google Doc) | — |
 | 2 — Plan vs. Execute | Build a tiny Angular todo app from scratch in a blank folder | a blank folder of their own choosing (no prepared code) |
-| 3 — Spot the Vibe-Coding Patterns + Intervene | Review a deliberately vibe-coded commit, then run a search-feature task | `labs/block3-4-contact-list/` |
-| 4 — Build AGENTS.md for the Contact App | Author AGENTS.md for the same contact app | `labs/block3-4-contact-list/` |
+| 3 — Spot the Vibe-Coding Patterns + Intervene | Review a deliberately vibe-coded commit, then run a search-feature task | `labs/lab1-contact-list/` |
+| 4 — Build AGENTS.md for the Contact App | Author AGENTS.md for the same contact app | `labs/lab1-contact-list/` |
 | 5 — MCP: Codanna | Index `angular/angular` with Codanna and ask the agent semantic questions | a fresh clone of `angular/angular` (no workshop lab folder — see [`mcp-snippets/README.md`](mcp-snippets/README.md) → *"Block 5 walkthrough on `angular/angular`"*) |
-| 5 — MCP: Chrome DevTools | Find and fix a visible UI bug using browser inspection | `labs/block5-chrome-devtools-bug/` |
-| 6 — Nx Monorepo Context Lab | Discover gaps in a layered context set, enhance docs/, optionally create `VISUAL-STYLEGUIDE.md` | `labs/block6-7-nx-monorepo/` |
-| 7 — OpenSpec | Propose, refine, apply a feature on the same Nx monorepo | `labs/block6-7-nx-monorepo/` |
+| 5 — MCP: Chrome DevTools | Find and fix a visible UI bug using browser inspection | `labs/lab2-chrome-devtools-bug/` |
+| 6 — Nx Monorepo Context Lab | Discover gaps in a layered context set, enhance docs/, optionally create `VISUAL-STYLEGUIDE.md` | `labs/lab3-nx-monorepo/` |
+| 7 — OpenSpec | Propose, refine, apply a feature on the same Nx monorepo | `labs/lab3-nx-monorepo/` |
 | 8 — Build Your Own | Assemble a full harness on participant's own project + stack | a fresh repo of their own — see `exercises/block8-build-your-own.md` |
 | 9 — Custom Skills | Build `/conventional-commit` skill, test it against your own current uncommitted changes | any lab folder you have open (no dedicated sandbox — reference: [`examples/conventional-commit.md`](examples/conventional-commit.md)) |
-| 9 — Custom Subagents | Build a security-reviewer subagent and test it against a planted snippet | `labs/block9-security-snippet/` |
+| 9 — Custom Subagents | Build a security-reviewer subagent and test it against a planted snippet | `labs/lab4-security-snippet/` |
 | 10 — Team Integration Plan | Fill in the personal worksheet | `worksheets/integration-plan.md` |
 | 11 — Closing | — | — |
 

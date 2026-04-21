@@ -22,7 +22,7 @@ You'll use this app as the **target** for the `security-reviewer` subagent you b
 You don't need to run the app to do the security review — the subagent reads source. But if you want to see the surface visually:
 
 ```bash
-cd labs/block9-security-snippet
+cd labs/lab4-security-snippet
 npm install
 npm start
 ```
@@ -46,14 +46,14 @@ npm run build  # production build
 | Styling | Tailwind 4 |
 | HTTP | Plain `fetch` (deliberately — see EXERCISE notes) |
 
-Conventions match the other labs (`block3-4-contact-list/`, `block5-chrome-devtools-bug/`) so the code looks unremarkable. The point is that *realistic-looking* code can carry serious security issues, and the AI subagent's job is to spot them anyway.
+Conventions match the other labs (`lab1-contact-list/`, `lab2-chrome-devtools-bug/`) so the code looks unremarkable. The point is that *realistic-looking* code can carry serious security issues, and the AI subagent's job is to spot them anyway.
 
 ---
 
 ## Folder map
 
 ```
-labs/block9-security-snippet/
+labs/lab4-security-snippet/
 ├── src/
 │   ├── index.html
 │   ├── main.ts

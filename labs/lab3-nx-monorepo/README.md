@@ -15,7 +15,7 @@ You'll spend most of your time reading code, planning with the agent, and writin
 ## Run the apps
 
 ```bash
-cd labs/block6-7-nx-monorepo
+cd labs/lab3-nx-monorepo
 npm install
 npm run db:reset       # wipe + migrate + seed the SQLite DB
 npx nx serve api       # NestJS on http://localhost:3000/api
@@ -56,7 +56,7 @@ npx nx test api        # test a single project
 The **context layer** participants will read, critique, and enhance:
 
 ```
-labs/block6-7-nx-monorepo/
+labs/lab3-nx-monorepo/
 ├── AGENTS.md                          ← entry point + pointers to docs/
 └── docs/
     ├── ARCHITECTURE.md                ← monorepo layout, request flow, domain model

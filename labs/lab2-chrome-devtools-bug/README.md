@@ -20,7 +20,7 @@ The component code is correct. The cause lives elsewhere — and finding it from
 ## Run the app
 
 ```bash
-cd labs/block5-chrome-devtools-bug
+cd labs/lab2-chrome-devtools-bug
 npm install
 npm start
 ```
@@ -59,7 +59,7 @@ Open http://localhost:4200/ in that Chrome window.
 ### 2. Start Claude Code from this folder
 
 ```bash
-cd labs/block5-chrome-devtools-bug
+cd labs/lab2-chrome-devtools-bug
 claude
 ```
 
@@ -97,14 +97,14 @@ Note the binary path the install command prints. Then replace `.mcp.json` with t
 | Styling | Tailwind 4 (CSS-first config) |
 | Tests | Vitest via `@angular/build:unit-test` |
 
-Conventions match `labs/block3-4-contact-list/` — reusing the same Angular shape lets the lab focus entirely on the MCP, not on the framework.
+Conventions match `labs/lab1-contact-list/` — reusing the same Angular shape lets the lab focus entirely on the MCP, not on the framework.
 
 ---
 
 ## Folder map
 
 ```
-labs/block5-chrome-devtools-bug/
+labs/lab2-chrome-devtools-bug/
 ├── .mcp.json               # Chrome DevTools-MCP server, project scope (Windows/macOS default)
 ├── src/
 │   ├── index.html
