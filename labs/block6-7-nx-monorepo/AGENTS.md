@@ -43,14 +43,19 @@ npx nx lint web        # lint a single project
 npx nx graph           # visualize the workspace
 ```
 
+## How to work in this repo
+
+> **Read this first, before touching any code.** [`docs/guidelines/WORKING-MODE.md`](./docs/guidelines/WORKING-MODE.md) defines the working agreement between you (the agent) and the human supervising you — verify instead of assuming, work in reviewable chunks and pause for confirmation, surface uncertainty, stay in scope, report honestly. The code conventions below only matter if the working mode is right.
+
 ## Where to look first
 
 Read in this order — each file points to the next:
 
-1. **[`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)** — the two-app + one-lib layout, request flow, persistence model, the `X-User-Id` auth simplification.
-2. **[`docs/guidelines/TYPESCRIPT.md`](./docs/guidelines/TYPESCRIPT.md)** — language-level conventions used by both apps and the shared lib.
-3. **[`docs/guidelines/ANGULAR.md`](./docs/guidelines/ANGULAR.md)** — frontend conventions (signals, control flow, routing, store pattern, inline templates).
-4. **[`docs/guidelines/NESTJS.md`](./docs/guidelines/NESTJS.md)** — backend conventions (module shape, controllers, services, DTOs, error responses).
+1. **[`docs/guidelines/WORKING-MODE.md`](./docs/guidelines/WORKING-MODE.md)** — *how* to work: verification, chunked progress with human checkpoints, honest reporting, scope discipline.
+2. **[`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)** — the two-app + one-lib layout, request flow, persistence model, the `X-User-Id` auth simplification.
+3. **[`docs/guidelines/TYPESCRIPT.md`](./docs/guidelines/TYPESCRIPT.md)** — language-level conventions used by both apps and the shared lib.
+4. **[`docs/guidelines/ANGULAR.md`](./docs/guidelines/ANGULAR.md)** — frontend conventions (signals, control flow, routing, store pattern, inline templates).
+5. **[`docs/guidelines/NESTJS.md`](./docs/guidelines/NESTJS.md)** — backend conventions (module shape, controllers, services, DTOs, error responses).
 
 When the answer to *"where should this code live?"* isn't in those files, fall back to **looking at how an existing feature does it** — `projects` is the most complete reference module on both the frontend and the backend.
 
@@ -98,6 +103,7 @@ labs/block6-7-nx-monorepo/
 
 This codebase ships with intentionally **thin** documentation in places — the Block 6 lab is partly about discovering and filling those gaps. If you (the agent) hit a question the existing context doesn't answer:
 
-1. **Say so explicitly** in your plan. Don't guess and proceed.
+1. **Say so explicitly** in your plan. Don't guess and proceed. (See `WORKING-MODE.md` → *Make uncertainty visible*.)
 2. Look at the closest existing feature for a pattern.
-3. If the human asks you to enhance a doc, write the enhancement into the **right existing file** (one of the four under `docs/`), not into AGENTS.md. AGENTS.md stays a pointer document.
+3. If you need to verify behaviour rather than guess at it, do so — run the relevant test, hit the endpoint, read the third-party source. (See `WORKING-MODE.md` → *Verify, don't assume*.)
+4. If the human asks you to enhance a doc, write the enhancement into the **right existing file** under `docs/`, not into AGENTS.md. AGENTS.md stays a pointer document.
