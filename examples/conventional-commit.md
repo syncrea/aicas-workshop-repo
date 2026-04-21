@@ -8,9 +8,12 @@
 
 ## File contents
 
-The block below is the entire `.claude/commands/conventional-commit.md` file. The frontmatter is what Claude Code reads to expose the slash command; everything below the second `---` is the prompt the agent runs.
+Everything between the `BEGIN conventional-commit.md` and `END conventional-commit.md` markers below is the entire `.claude/commands/conventional-commit.md` file, verbatim. The frontmatter is what Claude Code reads to expose the slash command; everything below the second `---` is the prompt the agent runs.
 
-```markdown
+> The content is not wrapped in a markdown code fence on purpose — the file *is* markdown and contains its own fenced code blocks, so a single outer fence would be closed prematurely by the inner ones. Read this file as raw text (or in your editor) when copying.
+
+<!-- ===================== BEGIN conventional-commit.md ===================== -->
+
 ---
 description: Generate a Conventional Commits message for the current staged diff
 allowed-tools:
@@ -117,7 +120,8 @@ Bad (avoid):
 - `chore: stuff` — not specific
 - `feat: Added new feature for users` — past tense, vague, capital A
 - `fix: this fixes the bug where the parser would crash when the input was empty` — runs over 72 chars, redundant phrasing
-```
+
+<!-- ====================== END conventional-commit.md ====================== -->
 
 ---
 

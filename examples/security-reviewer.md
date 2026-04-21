@@ -8,9 +8,12 @@
 
 ## File contents
 
-The block below is the entire `.claude/agents/security-reviewer.md` file. The frontmatter defines the subagent's identity, scope, and tool permissions; everything below is its system prompt — what the subagent is told it is, every time it's invoked.
+Everything between the `BEGIN security-reviewer.md` and `END security-reviewer.md` markers below is the entire `.claude/agents/security-reviewer.md` file, verbatim. The frontmatter defines the subagent's identity, scope, and tool permissions; everything below the second `---` is its system prompt — what the subagent is told it is, every time it's invoked.
 
-```markdown
+> The content is not wrapped in a markdown code fence on purpose — the file *is* markdown and contains its own fenced code blocks, so a single outer fence would be closed prematurely by the inner ones. Read this file as raw text (or in your editor) when copying.
+
+<!-- ====================== BEGIN security-reviewer.md ====================== -->
+
 ---
 name: security-reviewer
 description: Read-only security reviewer. Audits a code change (current diff, a specified file, or a specified path) for common application-security vulnerabilities and reports findings with severity, location, and a suggested fix. Use proactively before merging any change that touches authentication, authorization, user input handling, sensitive data, file uploads, deserialization, templating, HTTP client calls, or third-party dependencies.
@@ -164,7 +167,8 @@ Be honest with severity. *"It compiles and tests pass"* is not relevant to this 
 - Implementing fixes → "I'm read-only by design. Take these findings to the main agent for implementation."
 - Compliance attestations (SOC 2, GDPR, HIPAA conformance) → out of scope, suggest a human or a specialist tool.
 - Reviewing infrastructure-as-code (Terraform, k8s manifests, CI configs) unless the user explicitly asks — it's a different category of review.
-```
+
+<!-- ======================= END security-reviewer.md ======================= -->
 
 ---
 
