@@ -132,4 +132,4 @@ Add your choice to the workshop Google Doc → *Block 8 → Stack & Idea Roster*
 
 If you have a small project of your own — something you've been meaning to start, an internal tool you'd like a prototype of, a bug you want to fix in your own existing repo — that's strictly better than anything on this list. Use that.
 
-**One constraint:** if you're using an *existing* repo, work on a fresh branch and pick a new feature. The harness assembly steps (Phase 2 onward) assume there's no `AGENTS.md` yet, no `docs/guidelines/*` yet, no `openspec/` yet — so a greenfield branch on an existing repo works, but only if you're willing to add those files at the project root.
+**One constraint:** if you're using an *existing* repo, work on a fresh branch and pick a new feature. The harness assembly steps (Phase 2 onward) assume there's no `CLAUDE.md` yet, no `docs/guidelines/*` yet, no `openspec/` yet — so a greenfield branch on an existing repo works, but only if you're willing to add those files at the project root.

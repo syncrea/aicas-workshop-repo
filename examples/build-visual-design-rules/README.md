@@ -79,7 +79,7 @@ Agent outputs two files:
 
 The generated `visual-design-guidelines.md` can be:
 
-- Committed alongside `AGENTS.md` (or referenced from it) so every agent session inherits the visual rules
+- Committed alongside `CLAUDE.md` (or referenced from it) so every agent session inherits the visual rules
 - Dropped into `docs/guidelines/` next to other framework / language guidelines (the convention used in the workshop's lab repos)
 - Pasted as context when asking an agent to build or review UI
 

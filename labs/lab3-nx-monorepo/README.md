@@ -57,7 +57,7 @@ The **context layer** participants will read, critique, and enhance:
 
 ```
 labs/lab3-nx-monorepo/
-├── AGENTS.md                          ← entry point + pointers to docs/
+├── CLAUDE.md                          ← entry point + pointers to docs/ (read natively by Claude Code)
 └── docs/
     ├── ARCHITECTURE.md                ← monorepo layout, request flow, domain model
     └── guidelines/
@@ -92,4 +92,4 @@ libs/
 | Block 6 (Practical Context Lab) | [`EXERCISE-BLOCK-6.md`](./EXERCISE-BLOCK-6.md) |
 | Block 7 (OpenSpec) | [`EXERCISE-BLOCK-7.md`](./EXERCISE-BLOCK-7.md) |
 
-> **Heads up:** Block 7 builds directly on top of Block 6 in this same codebase. Don't reset between blocks — the AGENTS.md and `docs/` enhancements you make in Block 6 are exactly what makes the OpenSpec proposals dramatically better in Block 7.
+> **Heads up:** Block 7 builds directly on top of Block 6 in this same codebase. Don't reset between blocks — the `CLAUDE.md` and `docs/` enhancements you make in Block 6 are exactly what makes the OpenSpec proposals dramatically better in Block 7.

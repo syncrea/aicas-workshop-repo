@@ -56,7 +56,7 @@ How rigorously do you actually review what the agent produced?
 | **1 — Skim** | I glance at the diff, look for anything obviously weird, then move on. |
 | **2 — Spot-check** | I read the changed files end-to-end on important edits; small ones I skim. |
 | **3 — Diff every time** | Every agent change gets a `git diff` review before I commit, regardless of size. I commit small. |
-| **4 — Review with intent** | I review against my project's conventions (AGENTS.md / styleguide), look for vibe-coding patterns (repetition, drift, outdated APIs), and steer the agent mid-execution rather than after the fact. |
+| **4 — Review with intent** | I review against my project's conventions (CLAUDE.md / styleguide), look for vibe-coding patterns (repetition, drift, outdated APIs), and steer the agent mid-execution rather than after the fact. |
 
 **My level today:** ____
 

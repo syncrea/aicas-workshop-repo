@@ -51,7 +51,7 @@ What context files does your codebase need before agents can be useful in your f
 
 | File | Priority | Who writes it |
 |------|----------|---------------|
-| `AGENTS.md` (entry point) | ☐ must-have / ☐ nice-to-have | __________ |
+| `CLAUDE.md` (entry point) | ☐ must-have / ☐ nice-to-have | __________ |
 | `docs/ARCHITECTURE.md` | ☐ must-have / ☐ nice-to-have | __________ |
 | `docs/guidelines/<LANGUAGE>.md` | ☐ must-have / ☐ nice-to-have | __________ |
 | `docs/guidelines/<FRAMEWORK>.md` | ☐ must-have / ☐ nice-to-have | __________ |
@@ -89,7 +89,7 @@ From Block 9 — anything you (or your team) repeats more than twice is a candid
 
 What needs to be in place so this doesn't go off the rails?
 
-- [ ] **AGENTS.md / docs version-controlled** in the same repo as the code (not in a wiki)
+- [ ] **CLAUDE.md / docs version-controlled** in the same repo as the code (not in a wiki)
 - [ ] **Conventional commits + small commits enforced** (CI rule, pre-commit hook, or just team agreement)
 - [ ] **PR template requires** the author to mark whether the PR contains AI-generated code, and confirm they reviewed every diff
 - [ ] **Branch protection** on `main` — no direct pushes, even by agents
@@ -107,7 +107,7 @@ What needs to be in place so this doesn't go off the rails?
 
 **30 days (small signals):**
 
-- [ ] At least N people on the team have AGENTS.md in their primary repo: ____
+- [ ] At least N people on the team have CLAUDE.md in their primary repo: ____
 - [ ] At least N skills committed to the shared `.claude/commands/` directory: ____
 - [ ] First slice (from Section 1) is in production / used regularly: ☐ yes ☐ no
 - [ ] Other: ___________________________________________________
@@ -126,7 +126,7 @@ What needs to be in place so this doesn't go off the rails?
 
 ## 6 — First three concrete actions (this week)
 
-The single most important section. **Specific, small, dated.** "Talk to the team about AI" is not an action; "30-min meeting Tuesday with team-leads to agree on AGENTS.md authoring" is.
+The single most important section. **Specific, small, dated.** "Talk to the team about AI" is not an action; "30-min meeting Tuesday with team-leads to agree on CLAUDE.md authoring" is.
 
 | # | Action | Owner | Date |
 |---|--------|-------|------|

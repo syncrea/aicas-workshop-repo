@@ -1,25 +1,19 @@
-# AGENTS.md — Project Atlas (Block 6 + 7 Lab)
-
-> **You are about to work on a small but real Nx monorepo:** an Angular 21 frontend (`apps/web`) and a NestJS 11 backend (`apps/api`) sharing a typed contract through `libs/shared-types`. This file is the **entry point** — short on purpose. Most of the depth lives in [`docs/`](./docs/) and is referenced from here.
-
----
-
 ## What this codebase is
 
-**Project Atlas** is a lightweight project management workspace: users own and join *projects*, projects have *tasks* (todo / in-progress / done), *members* (with roles), open *invites*, and uploaded *attachments* (file metadata only — the workshop ships no blob storage). It exists to give Block 6 and Block 7 a realistic, multi-app codebase to practice context engineering and spec-driven development on.
+**Project Atlas** is a lightweight project management workspace: users own and join _projects_, projects have _tasks_ (todo / in-progress / done), _members_ (with roles), open _invites_, and uploaded _attachments_ (file metadata only — the workshop ships no blob storage). It exists to give Block 6 and Block 7 a realistic, multi-app codebase to practice context engineering and spec-driven development on.
 
 There is **no real authentication.** The "currently logged-in user" is whoever is named in the `X-User-Id` request header — the frontend's header picker is the closest thing to a login screen. Treat this as a deliberate workshop simplification, not a pattern to copy.
 
 ## Stack at a glance
 
-| Layer | Tech | Notes |
-| --- | --- | --- |
-| Workspace | Nx 22 | `nx.json`, project-level `project.json`, root `package.json` for scripts |
-| Frontend | Angular 21, Tailwind 4 | Standalone components, signals, zoneless change detection, **inline templates**, `@if` / `@for` |
-| Backend | NestJS 11 | Modular, `class-validator` DTOs, global `ValidationPipe` + `ApiExceptionFilter` |
-| Shared types | `libs/shared-types` | Wire-format DTOs and string-union constants only — no runtime code |
-| Persistence | SQLite via Prisma 6 | `apps/api/prisma/schema.prisma` is the schema source of truth |
-| Tests | Vitest (web), Jest (api), Vitest (shared-types) | All run via `npm test` at the workspace root |
+| Layer        | Tech                                            | Notes                                                                                           |
+| ------------ | ----------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Workspace    | Nx 22                                           | `nx.json`, project-level `project.json`, root `package.json` for scripts                        |
+| Frontend     | Angular 21, Tailwind 4                          | Standalone components, signals, zoneless change detection, **inline templates**, `@if` / `@for` |
+| Backend      | NestJS 11                                       | Modular, `class-validator` DTOs, global `ValidationPipe` + `ApiExceptionFilter`                 |
+| Shared types | `libs/shared-types`                             | Wire-format DTOs and string-union constants only — no runtime code                              |
+| Persistence  | SQLite via Prisma 6                             | `apps/api/prisma/schema.prisma` is the schema source of truth                                   |
+| Tests        | Vitest (web), Jest (api), Vitest (shared-types) | All run via `npm test` at the workspace root                                                    |
 
 ## Run it
 
@@ -45,19 +39,21 @@ npx nx graph           # visualize the workspace
 
 ## How to work in this repo
 
-> **Read this first, before touching any code.** [`docs/guidelines/WORKING-MODE.md`](./docs/guidelines/WORKING-MODE.md) defines the working agreement between you (the agent) and the human supervising you — verify instead of assuming, work in reviewable chunks and pause for confirmation, surface uncertainty, stay in scope, report honestly. The code conventions below only matter if the working mode is right.
+@docs/guidelines/WORKING-MODE.md
+
+> The line above eagerly imports `docs/guidelines/WORKING-MODE.md` into context at every session start (Claude Code `@`-import syntax). It defines the working agreement between you (the agent) and the human supervising you — verify instead of assuming, work in reviewable chunks and pause for confirmation, surface uncertainty, stay in scope, report honestly. The code conventions below only matter if the working mode is right, so this one file is worth the always-on cost. Everything else in `docs/` is referenced as a plain link below and pulled on demand.
 
 ## Where to look first
 
-Read in this order — each file points to the next:
+Read in this order — only the first file is eagerly imported above; the rest are pulled on demand when the task touches them:
 
-1. **[`docs/guidelines/WORKING-MODE.md`](./docs/guidelines/WORKING-MODE.md)** — *how* to work: verification, chunked progress with human checkpoints, honest reporting, scope discipline.
+1. **[`docs/guidelines/WORKING-MODE.md`](./docs/guidelines/WORKING-MODE.md)** — _how_ to work (already imported above; included here for the human reader). Verification, chunked progress with human checkpoints, honest reporting, scope discipline.
 2. **[`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)** — the two-app + one-lib layout, request flow, persistence model, the `X-User-Id` auth simplification.
 3. **[`docs/guidelines/TYPESCRIPT.md`](./docs/guidelines/TYPESCRIPT.md)** — language-level conventions used by both apps and the shared lib.
 4. **[`docs/guidelines/ANGULAR.md`](./docs/guidelines/ANGULAR.md)** — frontend conventions (signals, control flow, routing, store pattern, inline templates).
 5. **[`docs/guidelines/NESTJS.md`](./docs/guidelines/NESTJS.md)** — backend conventions (module shape, controllers, services, DTOs, error responses).
 
-When the answer to *"where should this code live?"* isn't in those files, fall back to **looking at how an existing feature does it** — `projects` is the most complete reference module on both the frontend and the backend.
+When the answer to _"where should this code live?"_ isn't in those files, fall back to **looking at how an existing feature does it** — `projects` is the most complete reference module on both the frontend and the backend.
 
 ## Workspace layout
 
@@ -90,7 +86,7 @@ labs/lab3-nx-monorepo/
 - **Frontend:** signals over RxJS, `@if`/`@for` over `*ngIf`/`*ngFor`, standalone components, **inline templates**, lazy-loaded routes, one signal-based store per domain entity (`*Store` services in `core/` or feature folders).
 - **Backend:** one Nest module per domain entity, controllers stay thin, services hold business logic + Prisma calls, DTOs in `dto/` subfolders, errors thrown as `Nest*Exception` and serialised by `ApiExceptionFilter`.
 - **Shared types:** wire-format only. No mappers, no functions, no Zod schemas — just `interface`s and `as const` string unions.
-- **Commits:** Conventional Commits, one feature per commit, body explains *why*. Look at `git log --oneline` for the existing tone.
+- **Commits:** Conventional Commits, one feature per commit, body explains _why_. Look at `git log --oneline` for the existing tone.
 
 ## Version control
 
@@ -103,7 +99,7 @@ labs/lab3-nx-monorepo/
 
 This codebase ships with intentionally **thin** documentation in places — the Block 6 lab is partly about discovering and filling those gaps. If you (the agent) hit a question the existing context doesn't answer:
 
-1. **Say so explicitly** in your plan. Don't guess and proceed. (See `WORKING-MODE.md` → *Make uncertainty visible*.)
+1. **Say so explicitly** in your plan. Don't guess and proceed. (See `WORKING-MODE.md` → _Make uncertainty visible_.)
 2. Look at the closest existing feature for a pattern.
-3. If you need to verify behaviour rather than guess at it, do so — run the relevant test, hit the endpoint, read the third-party source. (See `WORKING-MODE.md` → *Verify, don't assume*.)
-4. If the human asks you to enhance a doc, write the enhancement into the **right existing file** under `docs/`, not into AGENTS.md. AGENTS.md stays a pointer document.
+3. If you need to verify behaviour rather than guess at it, do so — run the relevant test, hit the endpoint, read the third-party source. (See `WORKING-MODE.md` → _Verify, don't assume_.)
+4. If the human asks you to enhance a doc, write the enhancement into the **right existing file** under `docs/`, not into CLAUDE.md. CLAUDE.md stays a pointer document.

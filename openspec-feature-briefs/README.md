@@ -2,7 +2,7 @@
 
 > Three feature briefs for the Block 7 OpenSpec hands-on. **Pick one** — by interest, not by perceived difficulty. They're each scoped to fit the lab's `/opsx:propose → review → /opsx:apply` loop in ~50 minutes on the Block 6 Nx monorepo.
 
-You'll be working in the **same Nx monorepo from Block 6** — same Angular frontend, same NestJS backend, same `AGENTS.md` + `docs/guidelines/*` you enhanced in Block 6. That existing context is exactly what makes the proposal step interesting: OpenSpec generates dramatically better proposals when the agent has good context to reference.
+You'll be working in the **same Nx monorepo from Block 6** — same Angular frontend, same NestJS backend, same `CLAUDE.md` + `docs/guidelines/*` you enhanced in Block 6. That existing context is exactly what makes the proposal step interesting: OpenSpec generates dramatically better proposals when the agent has good context to reference.
 
 ---
 
@@ -21,16 +21,17 @@ You'll be working in the **same Nx monorepo from Block 6** — same Angular fron
 ## How to use a brief
 
 1. Pick one. Don't agonise — there's no "best" choice.
-2. Run `/opsx:propose <chosen-feature>` and let OpenSpec generate the change folder under `openspec/changes/<chosen-feature>/`.
-3. Read every artifact in order: `proposal.md` → `specs/*` → `design.md` → `tasks.md`.
-4. **Review and refine** using the OpenSpec proposal review checklist:
-   - **`proposal.md`** — Is the motivation clear? Are non-goals stated? Does it explain *why*, not just *what*?
+2. **Research first.** Before any `/opsx:` command runs, distill the truth about the area the change touches into `docs/research/research-for-<chosen-feature>.md`. Read the existing Nest module for the entity, the corresponding Angular feature folder, the Prisma schema, the shared-types DTOs. Note the conventions in play (naming, validation, error handling, list-endpoint shape, auth pattern) and the open questions the brief surfaces. The research doc lives outside `openspec/` deliberately — the OpenSpec change folder doesn't exist yet, and the research stays useful even after the change is archived.
+3. Run `/opsx:propose <chosen-feature>` and **pass `docs/research/research-for-<chosen-feature>.md` as context** so the proposal is built on top of the research, not on guesses. OpenSpec generates the change folder under `openspec/changes/<chosen-feature>/`.
+4. Read every artifact in order: `proposal.md` → `specs/*` → `design.md` → `tasks.md`.
+5. **Review and refine** using the OpenSpec proposal review checklist:
+   - **`proposal.md`** — Is the motivation clear? Are non-goals stated? Does it explain *why*, not just *what*? Does it match `research-for-<chosen-feature>.md`?
    - **`specs/*`** — Are acceptance criteria testable? Are edge cases included?
-   - **`design.md`** — Does it match conventions from `docs/guidelines/*`? Is the data model aligned with existing patterns?
+   - **`design.md`** — Does it match conventions from `docs/guidelines/*` and the patterns surfaced in research?
    - **`tasks.md`** — Are tasks atomic? Ordered? Are migrations / seed data first?
-5. Push back on the agent. Have it update artifacts in place. Re-read until you'd hand the spec to a junior.
-6. `/opsx:apply` — work through `tasks.md` task by task, reviewing each diff as it lands.
-7. Don't expect to *finish* the feature in 10 minutes of apply time. The goal is to **experience the apply loop**, not ship.
+6. Push back on the agent — at the right layer. If the proposal contradicts research, fix the research first if it's wrong, otherwise push back on the spec. Never let proposal and research drift apart silently. Re-read until you'd hand the spec to a junior.
+7. `/opsx:apply` — work through `tasks.md` task by task, reviewing each diff as it lands.
+8. Don't expect to *finish* the feature in 10 minutes of apply time. The goal is to **experience the Research → Propose → Apply loop**, not ship.
 
 ---
 

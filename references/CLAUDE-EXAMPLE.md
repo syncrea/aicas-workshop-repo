@@ -1,10 +1,10 @@
-# Reference `AGENTS.md` — Contact List (Block 3+4 Lab)
+# Reference `CLAUDE.md` — Contact List (Block 3+4 Lab)
 
-> **What this is:** the "answer key" `AGENTS.md` for the [`labs/lab1-contact-list/`](../labs/lab1-contact-list/) app. This is what the workshop authors would write for that codebase.
+> **What this is:** the "answer key" `CLAUDE.md` for the [`labs/lab1-contact-list/`](../labs/lab1-contact-list/) app. This is what the workshop authors would write for that codebase.
 >
-> **DO NOT READ THIS BEFORE YOU'VE WRITTEN YOUR OWN.** Block 4 Exercise 4.2 is *"build it yourself first"* — the value is in the act of writing it. Use this file *afterwards* to compare, find what you missed, and steal what reads better than your own version. There's no single right `AGENTS.md`; this is one good one, deliberately conservative.
+> **DO NOT READ THIS BEFORE YOU'VE WRITTEN YOUR OWN.** Block 4 Exercise 4.2 is *"build it yourself first"* — the value is in the act of writing it. Use this file *afterwards* to compare, find what you missed, and steal what reads better than your own version. There's no single right `CLAUDE.md`; this is one good one, deliberately conservative.
 >
-> **Where it lives in a real project:** at the root of the lab folder as `AGENTS.md` (cross-tool: Claude Code, Cursor, Codex CLI, Aider, etc. all read it). Don't name it `CLAUDE.md` — that's tool-specific.
+> **Where it lives in a real project:** at the root of the lab folder as `CLAUDE.md`. Claude Code reads `CLAUDE.md` natively at the start of every session — no rename, no symlink, no cross-tool gymnastics needed for the workshop. If the same project also needs `AGENTS.md` for Cursor / Open Code / Cline / Aider, see [code.claude.com/docs/en/memory#agents-md](https://code.claude.com/docs/en/memory#agents-md) for the symlink and `@AGENTS.md` import patterns. The workshop sticks with plain `CLAUDE.md`.
 >
 > **How long should it be?** This reference is ~150 lines. Yours can be shorter. The goal is *prescriptive enough that a junior contractor seeing this codebase for the first time produces code that fits in*, not *encyclopedic enough to cover every edge case*. When in doubt, leave it out — you can add to it the first time the agent gets something wrong.
 
@@ -12,13 +12,13 @@
 
 ## File contents
 
-Everything between the `BEGIN AGENTS.md` and `END AGENTS.md` markers below is the entire `AGENTS.md` file, verbatim. Copy-paste it into the lab folder as `AGENTS.md`, point an agent at it, and re-run the planted prompt from Block 3 (*"Add a 'recently viewed contacts' feature..."*) to see how the output changes.
+Everything between the `BEGIN CLAUDE.md` and `END CLAUDE.md` markers below is the entire `CLAUDE.md` file, verbatim. Copy-paste it into the lab folder as `CLAUDE.md`, point an agent at it, and re-run the planted prompt from Block 3 (*"Add a 'recently viewed contacts' feature..."*) to see how the output changes.
 
 > The content is not wrapped in a markdown code fence on purpose — the file *is* markdown and contains its own fenced code blocks, so a single outer fence would be closed prematurely by the inner ones. Read this file as raw text (or in your editor) when copying.
 
-<!-- ============================ BEGIN AGENTS.md ============================ -->
+<!-- ============================ BEGIN CLAUDE.md ============================ -->
 
-# AGENTS.md — Contact List
+# CLAUDE.md — Contact List
 
 > Small Angular 21 contact list app. State lives in browser `localStorage` only — no backend. The whole point of this codebase, in the workshop context, is to be a **realistic but small** Angular app to practice agent supervision against.
 
@@ -134,11 +134,11 @@ When unsure, **read the closest existing feature first.** `ContactService` + `Co
 2. If two features do it differently, the older one is probably accidentally older, not intentionally different. Pick the cleaner pattern.
 3. Surface the gap before guessing — a one-line "I don't see a convention for X, here are two reasonable ways" is much cheaper to course-correct than the wrong choice already coded up.
 
-<!-- ============================= END AGENTS.md ============================= -->
+<!-- ============================= END CLAUDE.md ============================= -->
 
 ---
 
-## Why this `AGENTS.md` looks the way it does
+## Why this `CLAUDE.md` looks the way it does
 
 A few choices worth flagging — useful when you're comparing your own version to this one:
 
@@ -146,23 +146,35 @@ A few choices worth flagging — useful when you're comparing your own version t
 - **Decisive, not encyclopedic.** It tells the agent which of the available options to pick (signals over RxJS, `Result` over throw, `@if` over `*ngIf`) instead of explaining the trade-offs. The trade-off discussion lives in PR review, not here.
 - **A "what goes where" table.** Most of the Block 3 review failures are filing-cabinet failures — the agent put the right code in the wrong place. The table replaces three paragraphs of prose with a lookup.
 - **Anti-patterns named explicitly.** `BehaviorSubject` for state, `*ngIf` / `*ngFor`, snake_case fields, `.html` extraction, rolling-your-own date math — all called out by name. Naming the wrong thing is what stops the agent from doing it; vague "follow the existing patterns" doesn't.
-- **No commitment to a refactor that might land later.** It doesn't say "we will move state to NgRx" or "Result will be deprecated". `AGENTS.md` describes *how the code is written today*, not how someone wishes it were written. Aspirational `AGENTS.md` files age into lies.
+- **No commitment to a refactor that might land later.** It doesn't say "we will move state to NgRx" or "Result will be deprecated". `CLAUDE.md` describes *how the code is written today*, not how someone wishes it were written. Aspirational `CLAUDE.md` files age into lies.
 - **No NgRx / SignalStore mention.** The lab doesn't use them and adding them would be scope creep. If a real project did use one, this file would say so once and link to the relevant `docs/` page rather than embedding the pattern inline.
 - **Commit conventions are short on purpose.** Three bullets is enough for a single-developer lab; the workshop's `WORKING-MODE.md` covers the broader version-control discipline.
 
 ## What's deliberately not here
 
-- **Linting rules.** `eslint.config.mjs` (or whatever the project uses) is the source of truth — duplicating it in `AGENTS.md` creates drift.
-- **A full architecture diagram.** Overkill for a single-service localStorage app. In the larger Block 6+7 lab, that lives in `docs/ARCHITECTURE.md` and is *referenced* from `AGENTS.md`, not embedded.
+- **Linting rules.** `eslint.config.mjs` (or whatever the project uses) is the source of truth — duplicating it in `CLAUDE.md` creates drift.
+- **A full architecture diagram.** Overkill for a single-service localStorage app. In the larger Block 6+7 lab, that lives in `docs/ARCHITECTURE.md` and is *referenced* from `CLAUDE.md`, not embedded.
 - **A list of "principles" (SOLID, DRY, YAGNI, ...).** Junior agents already know these and they don't change behaviour. The codebase-specific anti-patterns above do.
-- **Tutorials / explanations.** The agent has those in its training data already. `AGENTS.md` is *project-specific* knowledge — what the agent *cannot* infer from its general Angular training.
+- **Tutorials / explanations.** The agent has those in its training data already. `CLAUDE.md` is *project-specific* knowledge — what the agent *cannot* infer from its general Angular training.
 
 ## When to split this into `docs/`
 
-This single file works because the lab is small. The signal that it's time to split into a pointer `AGENTS.md` + `docs/` folder is:
+This single file works because the lab is small. The signal that it's time to split into a pointer `CLAUDE.md` + `docs/` folder is:
 
 - The file passes ~250 lines and you start losing track of where things are when you scroll.
 - Two or more sections grow long enough that you'd rather link them than scroll through them.
 - A new contributor asks a question and you find yourself answering by paraphrasing — that's a section that belongs in its own file.
 
-The Block 6+7 lab demonstrates the layered shape (`AGENTS.md` as a pointer to `docs/ARCHITECTURE.md` + `docs/guidelines/{TYPESCRIPT,ANGULAR,NESTJS,WORKING-MODE}.md`) — read [`labs/lab3-nx-monorepo/AGENTS.md`](../labs/lab3-nx-monorepo/AGENTS.md) for that variant.
+The Block 6+7 lab demonstrates the layered shape (`CLAUDE.md` as a pointer to `docs/ARCHITECTURE.md` + `docs/guidelines/{TYPESCRIPT,ANGULAR,NESTJS,WORKING-MODE}.md`) — read [`labs/lab3-nx-monorepo/CLAUDE.md`](../labs/lab3-nx-monorepo/CLAUDE.md) for that variant.
+
+---
+
+## Cross-tool footnote: when you also need `AGENTS.md`
+
+Claude Code reads `CLAUDE.md`, not `AGENTS.md`. If your real-world project also has to support Cursor / Open Code / Cline / Aider — all of which read `AGENTS.md` — the official guidance is:
+
+- **Symlink (Unix/macOS):** `ln -s AGENTS.md CLAUDE.md` — both names resolve to the same file.
+- **Or import:** put `@AGENTS.md` at the top of `CLAUDE.md` and Claude Code will load `AGENTS.md` at session start. You can append Claude-specific notes below the import.
+- **`/init` already knows about it.** Running `/init` in a repo that already has `AGENTS.md` reads it and folds the relevant parts into the generated `CLAUDE.md`.
+
+Reference: [code.claude.com/docs/en/memory#agents-md](https://code.claude.com/docs/en/memory#agents-md). Inside the workshop you don't need any of this — just write `CLAUDE.md` and move on.

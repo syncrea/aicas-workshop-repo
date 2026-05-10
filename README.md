@@ -16,9 +16,11 @@ Each hands-on block of the workshop has its own **fully isolated lab folder** un
 
 1. Open **only that lab's folder** in VSCode (`File → Open Folder…`), not the umbrella root.
 2. Start Claude Code from inside that folder (`cd labs/<lab-name> && claude`).
-3. The agent's context is then scoped to that lab — no leakage from neighbouring labs, no parent `AGENTS.md` polluting the experience.
+3. The agent's context is then scoped to that lab — no leakage from neighbouring labs, no parent `CLAUDE.md` polluting the experience.
 
 This isolation is deliberate. Several labs ship with (or deliberately *without*) context files, planted issues, and specific git histories that only make sense inside their own folder.
+
+> **Naming note:** the workshop uses **`CLAUDE.md`** as the primary memory file, since that's what Claude Code reads natively. `AGENTS.md` is the cross-tool convention picked up by Cursor / Open Code / Cline / Aider — for cross-tool repos in real life, see [code.claude.com/docs/en/memory#agents-md](https://code.claude.com/docs/en/memory#agents-md) for the symlink and `@AGENTS.md` import patterns. Inside this workshop, just write `CLAUDE.md` and don't worry about it.
 
 ---
 
@@ -31,7 +33,7 @@ This isolation is deliberate. Several labs ship with (or deliberately *without*)
 ├── setup/                          — pre-workshop environment setup
 ├── labs/                           — one folder per hands-on block (open these in VSCode standalone)
 ├── exercises/                      — exercise prompts for blocks that don't have a code lab
-├── references/                     — reference artifacts (e.g. "what good looks like" AGENTS.md)
+├── references/                     — reference artifacts (e.g. "what good looks like" CLAUDE.md)
 ├── examples/                       — reference skills/subagents participants build during the workshop
 ├── mcp-snippets/                   — pre-tested .mcp.json fragments per MCP server
 ├── openspec-feature-briefs/        — three feature briefs for the Block 7 OpenSpec hands-on
@@ -47,7 +49,7 @@ This isolation is deliberate. Several labs ship with (or deliberately *without*)
 | 1 — Opening & Framing | Self-assessment + intros (in workshop Google Doc) | — |
 | 2 — Plan vs. Execute | Build a tiny Angular todo app from scratch in a blank folder | a blank folder of their own choosing (no prepared code) |
 | 3 — Spot the Vibe-Coding Patterns + Intervene | Review a deliberately vibe-coded commit, then run a search-feature task | `labs/lab1-contact-list/` |
-| 4 — Build AGENTS.md for the Contact App | Author AGENTS.md for the same contact app | `labs/lab1-contact-list/` |
+| 4 — Build CLAUDE.md for the Contact App | Author CLAUDE.md for the same contact app | `labs/lab1-contact-list/` |
 | 5 — MCP: Codanna | Index `angular/angular` with Codanna and ask the agent semantic questions | a fresh clone of `angular/angular` (no workshop lab folder — see [`mcp-snippets/README.md`](mcp-snippets/README.md) → *"Block 5 walkthrough on `angular/angular`"*) |
 | 5 — MCP: Chrome DevTools | Find and fix a visible UI bug using browser inspection | `labs/lab2-chrome-devtools-bug/` |
 | 6 — Nx Monorepo Context Lab | Discover gaps in a layered context set, enhance docs/, optionally create `VISUAL-STYLEGUIDE.md` | `labs/lab3-nx-monorepo/` |

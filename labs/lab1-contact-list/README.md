@@ -1,8 +1,9 @@
 # Block 3+4 Lab — Contact List
 
 A small Angular 21 contact list app, intentionally shipped **without any
-AI agent context** — no `AGENTS.md`, no `docs/`, no `.cursor/rules/`, no
-`.claude/`. That's the whole point: Block 3 has you point an unsupervised
+AI agent context** — no `CLAUDE.md`, no `AGENTS.md`, no `docs/`, no
+`.cursor/rules/`, no `.claude/`. That's the whole point: Block 3 has you
+point an unsupervised
 agent at this codebase and observe what happens, and Block 4 has you build
 the context layer that fixes it.
 
@@ -87,8 +88,8 @@ src/app/
 | You're doing | Open this |
 | --- | --- |
 | Block 3 (Permissions, Modes, Diff Review) | [`EXERCISE-BLOCK-3.md`](./EXERCISE-BLOCK-3.md) |
-| Block 4 (Context with AGENTS.md and docs) | [`EXERCISE-BLOCK-4.md`](./EXERCISE-BLOCK-4.md) |
+| Block 4 (Context with CLAUDE.md and docs) | [`EXERCISE-BLOCK-4.md`](./EXERCISE-BLOCK-4.md) |
 
 > **Heads up:** Block 4 builds directly on top of Block 3 in this same
-> codebase. Don't reset between sessions — the AGENTS.md you'll write in
+> codebase. Don't reset between sessions — the `CLAUDE.md` you'll write in
 > Block 4 is supposed to encode the lessons from your Block 3 review.

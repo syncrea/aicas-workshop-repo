@@ -13,7 +13,7 @@ Pre-tested **MCP server configuration snippets** for the workshop. Each `*.json`
 | [`codanna.json`](./codanna.json) | **Codanna** — semantic code search + symbol/relationship graph | Large codebase (thousands of files) where grep starts to lose. Block 5 uses it on `angular/angular` (~6.4k files / 62k symbols). | Small/fresh projects — overkill, and the index needs to be built first. |
 | [`chrome-devtools-windows.json`](./chrome-devtools-windows.json) | **Chrome DevTools-MCP** (Windows / macOS native Chrome) | Frontend work where the agent needs to *see* the rendered UI — visual bugs, layout issues, runtime errors, network inspection. | Pure backend, CLI tools, or anything without a browser-rendered UI. |
 | [`chrome-devtools-wsl.json`](./chrome-devtools-wsl.json) | **Chrome DevTools-MCP** (WSL / headless Linux) | Same as above, but you're on WSL or a Linux machine without a display server. Requires installing headless Chrome via Puppeteer first. | Same skip rules as the Windows variant. |
-| [`context7.json`](./context7.json) | **Context7** — current, version-specific library docs | Fast-moving frameworks where the model's training cutoff produces stale APIs (Angular, Next.js, Nuxt, Prisma, NestJS, etc.). | Long-stable libraries / your own code (`AGENTS.md` is enough). |
+| [`context7.json`](./context7.json) | **Context7** — current, version-specific library docs | Fast-moving frameworks where the model's training cutoff produces stale APIs (Angular, Next.js, Nuxt, Prisma, NestJS, etc.). | Long-stable libraries / your own code (`CLAUDE.md` is enough). |
 | [`atlassian.json`](./atlassian.json) | **Atlassian Rovo MCP** — Jira / Confluence / Compass | Your team uses Atlassian Cloud and you want the agent to start work directly from a ticket ID, search Jira, summarise Confluence, etc. | Self-managed Atlassian, no Atlassian, or you don't want the agent touching tickets/pages. |
 | [`gitlab.json`](./gitlab.json) | **GitLab MCP** — projects, issues, MRs, pipelines | Your team uses GitLab and you want the agent to handle MR ops, "why did this pipeline fail?", issue triage, etc. | GitHub teams (use the GitHub MCP instead) or self-managed GitLab without Duo Agent Platform. |
 
@@ -91,7 +91,7 @@ claude mcp add --transport http -s project GitLab    https://gitlab.com/api/v4/m
    Re-index after major branch switches or when symbols you expect aren't found.
 3. Drop in `codanna.json` (or merge the entry).
 4. Verify with `/mcp` — the codanna entry should report healthy and expose tools like `semantic_search_with_context`, `analyze_impact`, `find_callers`, `get_calls`.
-5. Encode the **codanna-first / grep-to-verify** policy in your `AGENTS.md` — paste the snippet from *"AGENTS.md policy snippet"* immediately below.
+5. Encode the **codanna-first / grep-to-verify** policy in your `CLAUDE.md` (or `AGENTS.md` if you're on a cross-tool repo) — paste the snippet from *"Memory-file policy snippet"* immediately below.
 
 #### Block 5 walkthrough on `angular/angular`
 
@@ -107,18 +107,19 @@ cp /path/to/workshop-repo/mcp-snippets/codanna.json ./.mcp.json
 # Edit ./.mcp.json — drop the leading "_comment" field
 ```
 
-Then **edit the in-tree `AGENTS.md`** that ships with `angular/angular`:
+Then **bridge the in-tree `AGENTS.md`** that ships with `angular/angular` so Claude Code reads it natively:
 
-1. **Strip the YAML frontmatter** at the top (`---trigger: always_on---`). Some MCP-driven indexers and parsers handle it poorly, and removing it makes the file cleanly cross-tool.
-2. **Append the AGENTS.md policy snippet below** at the end of the file. (Don't overwrite the existing testing/PR conventions — Angular's own AGENTS.md is short and useful, just augment it.)
+1. From the repo root, run `ln -s AGENTS.md CLAUDE.md` so Claude Code picks it up. (On Windows: skip the symlink and instead create a one-line `CLAUDE.md` containing `@AGENTS.md` — Claude Code will load Angular's `AGENTS.md` as an import.)
+2. **Edit `AGENTS.md`** — strip the YAML frontmatter at the top (`---trigger: always_on---`). Some MCP-driven indexers and parsers handle it poorly, and removing it makes the file cleanly cross-tool.
+3. **Append the memory-file policy snippet below** at the end of `AGENTS.md`. (Don't overwrite the existing testing/PR conventions — Angular's own `AGENTS.md` is short and useful, just augment it.)
 
 Start Claude Code from the repo root, accept the project-scope `.mcp.json` trust prompt the first time, verify with `/mcp` that `codanna` shows up, then run the four exercise rounds in the workshop outline.
 
-#### AGENTS.md policy snippet
+#### Memory-file policy snippet
 
-Drop-in section for any AGENTS.md once Codanna is registered for the project. Keep it short, concrete, and verifiable — the value is in *naming the rule*, not in long prose.
+Drop-in section for any `CLAUDE.md` (or `AGENTS.md` on a cross-tool repo) once Codanna is registered for the project. Keep it short, concrete, and verifiable — the value is in *naming the rule*, not in long prose.
 
-<!-- ===================== BEGIN codanna AGENTS.md snippet ===================== -->
+<!-- ================== BEGIN codanna memory-file snippet ================== -->
 
 ## Code search
 
@@ -134,7 +135,7 @@ This repository is indexed with [Codanna](https://github.com/bartolli/codanna). 
 
 **Cite-then-act:** any Codanna claim that names a specific `file:line` gets a one-shot `Read` or `Grep` verification before you edit or refactor based on it. Same discipline as cite-then-act for any external source.
 
-<!-- ====================== END codanna AGENTS.md snippet ====================== -->
+<!-- =================== END codanna memory-file snippet =================== -->
 
 ### Chrome DevTools-MCP (Windows / macOS)
 
@@ -165,7 +166,7 @@ This repository is indexed with [Codanna](https://github.com/bartolli/codanna). 
 1. You need an **Atlassian Cloud site** with Jira, Confluence, or Compass that your account can access.
 2. Drop in `atlassian.json`. The `type: "http"` entry plus the URL is all Claude Code needs.
 3. Start Claude Code, then in chat type `/mcp` and select the Atlassian server. A browser opens for OAuth 2.1 consent — approve the scopes for the apps you want the agent to access.
-4. **Workshop tip — pin the cloudId / project / space in `AGENTS.md`** to save tokens on every call. Example:
+4. **Workshop tip — pin the cloudId / project / space in `CLAUDE.md`** to save tokens on every call. Example:
    ```markdown
    ## Atlassian Rovo MCP
    When connected to atlassian:
