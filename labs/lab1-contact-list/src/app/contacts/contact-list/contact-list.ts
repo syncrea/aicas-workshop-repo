@@ -4,11 +4,11 @@ import { RouterLink } from '@angular/router';
 import { formatRelativeDate } from '../../shared/utils/date';
 import { Contact, contactDisplayName } from '../contact.model';
 import { ContactService } from '../contact.service';
-import { RecentlyViewedModule } from '../recently-viewed/recently-viewed.module';
+import { RecentlyViewed } from '../recently-viewed/recently-viewed';
 
 @Component({
   selector: 'app-contact-list',
-  imports: [RouterLink, RecentlyViewedModule],
+  imports: [RouterLink, RecentlyViewed],
   template: `
     <div class="space-y-6">
       <div class="flex items-baseline justify-between">
