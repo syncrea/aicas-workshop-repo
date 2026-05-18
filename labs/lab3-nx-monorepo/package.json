@@ -12,7 +12,7 @@
     "db:migrate": "prisma migrate dev --schema=apps/api/prisma/schema.prisma",
     "db:generate": "prisma generate --schema=apps/api/prisma/schema.prisma",
     "db:seed": "ts-node --transpile-only -O '{\"module\":\"commonjs\"}' apps/api/prisma/seed.ts",
-    "db:reset": "prisma migrate reset --force --schema=apps/api/prisma/schema.prisma",
+    "db:reset": "node -e \"require('node:fs').rmSync('apps/api/prisma/dev.db', { force: true })\" && prisma migrate dev --schema=apps/api/prisma/schema.prisma --skip-seed && npm run db:seed",
     "db:studio": "prisma studio --schema=apps/api/prisma/schema.prisma"
   },
   "prisma": {

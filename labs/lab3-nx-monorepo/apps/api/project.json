@@ -5,8 +5,17 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "db-generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prisma generate --schema=apps/api/prisma/schema.prisma"
+      }
+    },
     "build": {
       "executor": "nx:run-commands",
+      "dependsOn": [
+        "db-generate"
+      ],
       "options": {
         "command": "webpack-cli build",
         "args": [
